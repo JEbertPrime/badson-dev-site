@@ -12,7 +12,7 @@ export function ProductForm({productOptions, selectedVariant}) {
   const navigate = useNavigate();
   const {open} = useAside();
   return (
-    <div className="product-form">
+    <div className="product-form m-auto">
       {productOptions.map((option) => {
         // If there is only a single value in the option values, don't display the option
         if (option.optionValues.length === 1) return null;
@@ -20,7 +20,9 @@ export function ProductForm({productOptions, selectedVariant}) {
         return (
           <div className="product-options" key={option.name}>
             <h5>{option.name}</h5>
-            <div className="product-options-grid">
+            <div
+              className={`product-options-grid grid m-auto grid-cols-${option.optionValues.length}`}
+            >
               {option.optionValues.map((value) => {
                 const {
                   name,
@@ -32,7 +34,6 @@ export function ProductForm({productOptions, selectedVariant}) {
                   isDifferentProduct,
                   swatch,
                 } = value;
-
                 if (isDifferentProduct) {
                   // SEO
                   // When the variant is a combined listing child product
@@ -40,16 +41,17 @@ export function ProductForm({productOptions, selectedVariant}) {
                   // as an anchor tag
                   return (
                     <Link
-                      className="product-options-item"
+                      className={`product-options-item border ${
+                        selected
+                          ? 'after:w-full after:h-full after:border-green-500 after:border'
+                          : ''
+                      } border-[var(--color-foreground)] rounded-full`}
                       key={option.name + name}
                       prefetch="intent"
                       preventScrollReset
                       replace
                       to={`/products/${handle}?${variantUriQuery}`}
                       style={{
-                        border: selected
-                          ? '1px solid black'
-                          : '1px solid transparent',
                         opacity: available ? 1 : 0.3,
                       }}
                     >
@@ -65,16 +67,14 @@ export function ProductForm({productOptions, selectedVariant}) {
                   return (
                     <button
                       type="button"
-                      className={`product-options-item${
+                      className={`relative border border-[var(--color-foreground)] rounded-full aspect-square product-options-item${
                         exists && !selected ? ' link' : ''
+                      } ${
+                        selected
+                          ? 'after:w-[8/10] after:h-[8/10] after:border-[#98cd78] after:border-2 after:left-0 after:right-0 after:m-auto after:bottom-0 after:top-0 after:rounded-full'
+                          : ''
                       }`}
                       key={option.name + name}
-                      style={{
-                        border: selected
-                          ? '1px solid black'
-                          : '1px solid transparent',
-                        opacity: available ? 1 : 0.3,
-                      }}
                       disabled={!exists}
                       onClick={() => {
                         if (!selected) {

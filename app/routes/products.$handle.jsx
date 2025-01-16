@@ -9,15 +9,16 @@ import {
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
 import {ProductPrice} from '~/components/ProductPrice';
-import {ProductImage} from '~/components/ProductImage';
+import {ProductImageGallery} from '~/components/ProductImageGallery';
 import {ProductForm} from '~/components/ProductForm';
+import {ProductDescription} from '~/components/ProductDescription';
 
 /**
  * @type {MetaFunction<typeof loader>}
  */
 export const meta = ({data}) => {
   return [
-    {title: `Hydrogen | ${data?.product.title ?? ''}`},
+    {title: `BADSON | ${data?.product.title ?? ''}`},
     {
       rel: 'canonical',
       href: `/products/${data?.product.handle}`,
@@ -61,7 +62,20 @@ async function loadCriticalData({context, params, request}) {
   if (!product?.id) {
     throw new Response(null, {status: 404});
   }
-
+  if (product?.descriptionHtml) {
+    // eslint-disable-next-line no-unused-vars
+    const [empty, ...tabs] = product.descriptionHtml.split(
+      /\<.*\s*\*\*\*[^\*]*\*\*\*\s*\<\/.*\>/,
+    );
+    const tabNames = [
+      ...product.descriptionHtml.matchAll(/\*\*\*([^\*]*)\*\*\*/g),
+    ];
+    const descriptionArray = [];
+    tabNames.forEach((tabName, i) => {
+      descriptionArray[i] = [tabName[1], tabs[i]];
+    });
+    product.descriptionArray = descriptionArray;
+  }
   return {
     product,
   };
@@ -100,12 +114,12 @@ export default function Product() {
     selectedOrFirstAvailableVariant: selectedVariant,
   });
 
-  const {title, descriptionHtml} = product;
+  const {title, images} = product;
 
   return (
     <div className="product">
-      <ProductImage image={selectedVariant?.image} />
-      <div className="product-main">
+      <ProductImageGallery images={images.nodes} />
+      <div className="product-main flex flex-col justify-center align-center text-center">
         <h1>{title}</h1>
         <ProductPrice
           price={selectedVariant?.price}
@@ -122,7 +136,7 @@ export default function Product() {
           <strong>Description</strong>
         </p>
         <br />
-        <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+        <ProductDescription description={product.descriptionArray} />
         <br />
       </div>
       <Analytics.ProductView
@@ -189,6 +203,15 @@ const PRODUCT_FRAGMENT = `#graphql
     handle
     descriptionHtml
     description
+    images(first:10){
+      nodes{
+        url(transform:{maxWidth: 1200})
+        height
+        width
+        altText
+        id
+      }
+    }
     encodedVariantExistence
     encodedVariantAvailability
     options {
