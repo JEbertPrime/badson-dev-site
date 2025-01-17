@@ -115,10 +115,11 @@ export default function Product() {
   });
 
   const {title, images} = product;
+  const [first, second, ...galleryImages] = images.nodes;
 
   return (
     <div className="product">
-      <ProductImageGallery images={images.nodes} />
+      <ProductImageGallery images={galleryImages} />
       <div className="product-main flex flex-col justify-center align-center text-center">
         <h1>{title}</h1>
         <ProductPrice
@@ -161,6 +162,7 @@ export default function Product() {
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
+    currentlyNotInStock
     compareAtPrice {
       amount
       currencyCode
@@ -203,7 +205,7 @@ const PRODUCT_FRAGMENT = `#graphql
     handle
     descriptionHtml
     description
-    images(first:10){
+    images(first:10 ){
       nodes{
         url(transform:{maxWidth: 1200})
         height

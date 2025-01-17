@@ -1,5 +1,10 @@
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/helvetica.otf');
+}
 body {
   font-family:
+    'Helvetica',
     system-ui,
     -apple-system,
     BlinkMacSystemFont,

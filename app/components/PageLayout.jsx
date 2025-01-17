@@ -1,5 +1,7 @@
-import {Await, Link} from '@remix-run/react';
+import {Await, Link, useLocation} from '@remix-run/react';
 import {Suspense, useId} from 'react';
+import {AnimatePresence, motion} from 'framer-motion';
+
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
@@ -34,7 +36,16 @@ export function PageLayout({
           publicStoreDomain={publicStoreDomain}
         />
       )}
-      <main>{children}</main>
+      <AnimatePresence mode="wait">
+        <motion.main
+          key={useLocation().pathname}
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          transition={{duration: 0.3}}
+        >
+          {children}
+        </motion.main>
+      </AnimatePresence>
       <Footer
         footer={footer}
         header={header}

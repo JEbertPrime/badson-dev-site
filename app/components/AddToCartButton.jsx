@@ -28,6 +28,7 @@ export function AddToCartButton({
           <button
             type="submit"
             onClick={onClick}
+            className="rounded-full aspect-square border border-[var(--foreground-color)] p-3 uppercase "
             disabled={disabled ?? fetcher.state !== 'idle'}
           >
             {children}

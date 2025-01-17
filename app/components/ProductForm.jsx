@@ -19,7 +19,7 @@ export function ProductForm({productOptions, selectedVariant}) {
 
         return (
           <div className="product-options" key={option.name}>
-            <h5>{option.name}</h5>
+            <h5 className="hidden">{option.name}</h5>
             <div
               className={`product-options-grid grid m-auto grid-cols-${option.optionValues.length}`}
             >
@@ -71,7 +71,7 @@ export function ProductForm({productOptions, selectedVariant}) {
                         exists && !selected ? ' link' : ''
                       } ${
                         selected
-                          ? 'after:w-[8/10] after:h-[8/10] after:border-[#98cd78] after:border-2 after:left-0 after:right-0 after:m-auto after:bottom-0 after:top-0 after:rounded-full'
+                          ? 'after:w-[90%] after:h-[90%] after:border-[#98cd78] after:border-2 after:left-0 after:right-0 after:m-auto after:bottom-0 after:top-0 after:rounded-full after:block after:absolute'
                           : ''
                       }`}
                       key={option.name + name}
@@ -112,7 +112,19 @@ export function ProductForm({productOptions, selectedVariant}) {
             : []
         }
       >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
+        {selectedVariant?.availableForSale ? (
+          selectedVariant.currentlyNotInStock ? (
+            <span>
+              Pre
+              <br />
+              Order
+            </span>
+          ) : (
+            'Add to cart'
+          )
+        ) : (
+          'Sold out'
+        )}
       </AddToCartButton>
     </div>
   );
