@@ -35,7 +35,20 @@ export function Aside({children, heading, type}) {
     }
     return () => abortController.abort();
   }, [close, expanded]);
-
+  if (type == 'mobile') {
+    return (
+      <div
+        aria-modal
+        className={`overlay mobile  ${expanded ? 'expanded ' : ''}`}
+        role="dialog"
+      >
+        <button className="close-outside" onClick={close} />
+        <aside>
+          <main className="pt-10">{children}</main>
+        </aside>
+      </div>
+    );
+  }
   return (
     <div
       aria-modal

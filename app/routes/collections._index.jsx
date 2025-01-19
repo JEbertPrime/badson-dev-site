@@ -1,20 +1,10 @@
-import {useLoaderData, Link} from '@remix-run/react';
+import {useLoaderData, Link, redirect} from '@remix-run/react';
 import {defer} from '@shopify/remix-oxygen';
 import {getPaginationVariables, Image} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
-
-/**
- * @param {LoaderFunctionArgs} args
- */
-export async function loader(args) {
-  // Start fetching non-critical data without blocking time to first byte
-  const deferredData = loadDeferredData(args);
-
-  // Await the critical data required to render initial state of the page
-  const criticalData = await loadCriticalData(args);
-
-  return defer({...deferredData, ...criticalData});
-}
+export const loader = async () => {
+  return redirect('/');
+};
 
 /**
  * Load data necessary for rendering content above the fold. This is the critical data
@@ -46,7 +36,7 @@ function loadDeferredData({context}) {
   return {};
 }
 
-export default function Collections() {
+export function Collections() {
   /** @type {LoaderReturnData} */
   const {collections} = useLoaderData();
 

@@ -1,7 +1,8 @@
 import {Suspense} from 'react';
 import {Await, NavLink, useAsyncValue} from '@remix-run/react';
-import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
+import {useAnalytics, useOptimisticCart, Image} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
+import cartBag from '~/assets/bag.avif?url';
 
 /**
  * @param {HeaderProps}
@@ -86,13 +87,31 @@ function HeaderCtas({isLoggedIn, cart}) {
 }
 
 function HeaderMenuMobileToggle() {
-  const {open} = useAside();
+  const {open, close, type} = useAside();
+  const toggleAside = (open, close, type) => {
+    if (type == 'mobile') {
+      close();
+    } else {
+      open('mobile');
+    }
+  };
   return (
     <button
-      className="header-menu-mobile-toggle reset"
-      onClick={() => open('mobile')}
+      className={
+        'header-menu-mobile-toggle   reset grid grid-cols-3 transition-transform duration-200 gap-1 grid-rows-3 w-6 h-6' +
+        (type == 'mobile' ? ' z-50 rotate-90 delay-200 ' : ' rotate-0')
+      }
+      onClick={() => toggleAside(open, close, type)}
     >
-      <h3>☰</h3>
+      {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((square, i) => (
+        <span
+          key={'menu-toggle-pip-' + square}
+          className={
+            'bg-[var(--foreground-color)] aspect-square  transition-opacity delay-200 rounded-full ' +
+            (type === 'mobile' && i % 2 == 1 ? 'opacity-10' : 'opacity-100')
+          }
+        ></span>
+      ))}
     </button>
   );
 }
@@ -112,10 +131,16 @@ function SearchToggle() {
 function CartBadge({count}) {
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
-
+  console.log(cart);
   return (
     <a
       href="/cart"
+      className={
+        'relative' +
+        (cart?.totalQuantity > 0
+          ? ' after:rounded-full after:bg-[#a6e780] after:w-2 after:block after:h-2 after:absolute  after:top-[10px] after:right-2'
+          : '')
+      }
       onClick={(e) => {
         e.preventDefault();
         open('cart');
@@ -127,7 +152,7 @@ function CartBadge({count}) {
         });
       }}
     >
-      Cart {count === null ? <span>&nbsp;</span> : count}
+      <Image className={`cart-icon `} width={24} src={cartBag} />
     </a>
   );
 }

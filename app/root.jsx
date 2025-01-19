@@ -10,6 +10,7 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
 } from '@remix-run/react';
+import {useState} from 'react';
 import favicon from '~/assets/favicon.svg';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
@@ -17,6 +18,7 @@ import appStyles from '~/styles/app.css?url';
 import tailwindStyles from '~/styles/tailwind.css?url';
 import {PageLayout} from '~/components/PageLayout';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
+import {ColorSetterContext, ColorContext} from './lib/colorContext';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -143,7 +145,8 @@ export function Layout({children}) {
   const nonce = useNonce();
   /** @type {RootLoader} */
   const data = useRouteLoaderData('root');
-
+  const [colorScheme, setColorScheme] = useState('dark');
+  data.setColorScheme = setColorScheme;
   return (
     <html lang="en">
       <head>
@@ -152,14 +155,18 @@ export function Layout({children}) {
         <Meta />
         <Links />
       </head>
-      <body className="dark">
+      <body className={colorScheme}>
         {data ? (
           <Analytics.Provider
             cart={data.cart}
             shop={data.shop}
             consent={data.consent}
           >
-            <PageLayout {...data}>{children}</PageLayout>
+            <ColorSetterContext.Provider value={setColorScheme}>
+              <ColorContext.Provider value={colorScheme}>
+                <PageLayout {...data}>{children}</PageLayout>
+              </ColorContext.Provider>
+            </ColorSetterContext.Provider>
           </Analytics.Provider>
         ) : (
           children

@@ -2,6 +2,10 @@
   font-family: 'Helvetica';
   src: url('/helvetica.otf');
 }
+@font-face {
+  font-family: 'icon';
+  src: url('/icon.woff');
+}
 body {
   font-family:
     'Helvetica',

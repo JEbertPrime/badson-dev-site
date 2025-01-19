@@ -1,8 +1,10 @@
 import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
-import {Suspense} from 'react';
+import {Suspense, useContext} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
-
+import {ProductItem} from './collections.$handle';
+import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {ColorSetterContext} from '~/lib/colorContext';
 /**
  * @type {MetaFunction}
  */
@@ -65,7 +67,6 @@ export default function Homepage() {
   return (
     <div className="home">
       <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
     </div>
   );
 }
@@ -76,20 +77,23 @@ export default function Homepage() {
  * }}
  */
 function FeaturedCollection({collection}) {
+  const setColorScheme = useContext(ColorSetterContext);
+
   if (!collection) return null;
-  const image = collection?.image;
+  if (collection.metafield.value) {
+    setColorScheme(collection.metafield.value.toLowerCase());
+  }
   return (
-    <Link
-      className="featured-collection"
-      to={`/collections/${collection.handle}`}
-    >
-      {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
-        </div>
-      )}
-      <h1>{collection.title}</h1>
-    </Link>
+    <div className="collection grid grid-cols-2 flex-wrap gap-6 max-w-4xl m-auto">
+      {collection.products.nodes.map((product, index) => (
+        <ProductItem
+          key={product.id}
+          className="flex-grow"
+          product={product}
+          loading={index < 8 ? 'eager' : undefined}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -135,9 +139,44 @@ function RecommendedProducts({products}) {
 }
 
 const FEATURED_COLLECTION_QUERY = `#graphql
+  fragment MoneyProductItem on MoneyV2 {
+    amount
+    currencyCode
+  }
+  fragment ProductItem on Product {
+    id
+    handle
+    title
+    featuredImage {
+      id
+      altText
+      url
+      width
+      height
+    }
+    priceRange {
+      minVariantPrice {
+        ...MoneyProductItem
+      }
+      maxVariantPrice {
+        ...MoneyProductItem
+      }
+    }
+  }
+
   fragment FeaturedCollection on Collection {
     id
     title
+    metafield(namespace: "custom", key: "color_scheme"){
+      value
+    }
+    products(first: 12){
+        nodes{
+          ...ProductItem
+        
+      }
+
+    }
     image {
       id
       url

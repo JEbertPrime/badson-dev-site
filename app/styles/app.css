@@ -23,6 +23,9 @@ body.dark{
 
 
 }
+body.dark .cart-icon{
+  filter: invert();
+}
 body{
   background-color: var(--background-color);
   color: var(--foreground-color);
@@ -58,7 +61,18 @@ aside {
   top: 0;
   transition: transform 200ms ease-in-out;
 }
-
+.mobile aside {
+  background: var(--background-color);
+  color: var(--foreground-color);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+  height: 100vh;
+  max-width: var(--aside-width);
+  min-width: var(--aside-width);
+  position: fixed;
+  left: calc(-1 * var(--aside-width));
+  top: 0;
+  transition: transform 200ms ease-in-out;
+}
 aside header {
   align-items: center;
   border-bottom: 1px solid var(--foreground-color);
@@ -151,7 +165,9 @@ aside li {
 .overlay.expanded aside {
   transform: translateX(calc(var(--aside-width) * -1));
 }
-
+.overlay.expanded.mobile aside {
+  transform: translateX(calc(var(--aside-width) * 1));
+}
 button.reset {
   border: 0;
   background: inherit;
@@ -227,8 +243,9 @@ button.reset:hover:not(:has(> *)) {
 * --------------------------------------------------
 */
 .footer {
-  background: var(--color-dark);
+  background: var(--background-color);
   margin-top: auto;
+  color: var(--foreground-color);
 }
 
 .footer-menu {
@@ -236,10 +253,12 @@ button.reset:hover:not(:has(> *)) {
   display: flex;
   grid-gap: 1rem;
   padding: 1rem;
+  color: var(--foreground-color);
+
 }
 
 .footer-menu a {
-  color: var(--color-light);
+  color: var(--foreground-color);
 }
 
 /*
@@ -275,7 +294,7 @@ button.reset:hover:not(:has(> *)) {
 
 .cart-summary-aside {
   background: white;
-  border-top: 1px solid var(--color-dark);
+  border-top: 1px solid var(--background-color);
   bottom: 0;
   padding-top: 0.75rem;
   position: absolute;
@@ -307,7 +326,7 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .predictive-search-form {
-  background: var(--color-light);
+  background: var(--foreground-color);
   position: sticky;
   top: 0;
 }
@@ -531,4 +550,221 @@ button.reset:hover:not(:has(> *)) {
 
 .account-logout {
   display: inline-block;
+}
+
+/**
+Icons
+*/
+
+.icon {
+  display: inline-block
+}
+
+.supports-no-fontface .icon {
+  display: none
+}
+
+.icon:before {
+  display: inline;
+  font-family: icons;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale
+}
+
+.supports-no-fontface .icon:before {
+  display: none
+}
+
+.icon-amazon_payments:before {
+  content: "\e906"
+}
+
+.icon-american_express:before {
+  content: "A"
+}
+
+.icon-apple_pay:before {
+  content: "\e907"
+}
+
+.icon-arrow-down:before {
+  content: "\e607"
+}
+
+.icon-arrow-left:before {
+  content: "\e608"
+}
+
+.icon-arrow-right:before {
+  content: "\e609"
+}
+
+.icon-bitcoin:before {
+  content: "B"
+}
+
+.icon-cart:before {
+  content: "\e600"
+}
+
+.icon-cirrus:before {
+  content: "C"
+}
+
+.icon-dankort:before {
+  content: "d"
+}
+
+.icon-diners_club:before {
+  content: "c"
+}
+
+.icon-discover:before {
+  content: "D"
+}
+
+.icon-dogecoin:before {
+  content: "\e900"
+}
+
+.icon-dwolla:before {
+  content: "\e901"
+}
+
+.icon-facebook:before {
+  content: "f"
+}
+
+.icon-fancy:before {
+  content: "F"
+}
+
+.icon-forbrugsforeningen:before {
+  content: "\e902"
+}
+
+.icon-google_plus:before {
+  content: "\e904"
+}
+
+.icon-grid-view:before {
+  content: "\e603"
+}
+
+.icon-hamburger:before {
+  content: "\e601"
+}
+
+.icon-instagram:before {
+  content: "\e905"
+}
+
+.icon-interac:before {
+  content: "I"
+}
+
+.icon-jcb:before {
+  content: "J"
+}
+
+.icon-klarna:before {
+  content: "\e90a"
+}
+
+.icon-list-view:before {
+  content: "\e604"
+}
+
+.icon-litecoin:before {
+  content: "\e903"
+}
+
+.icon-maestro:before {
+  content: "m"
+}
+
+.icon-master:before {
+  content: "M"
+}
+
+.icon-minus:before {
+  content: "\e602"
+}
+
+.icon-paypal:before {
+  content: "P"
+}
+
+.icon-pin:before {
+  content: "\e909"
+}
+
+.icon-pinterest:before {
+  content: "p"
+}
+
+.icon-plus:before {
+  content: "\e605"
+}
+
+.icon-rss:before {
+  content: "r"
+}
+
+.icon-search:before {
+  content: "s"
+}
+
+.icon-shopify_pay:before {
+  content: "\e90b"
+}
+
+.icon-snapchat:before {
+  content: "\e908"
+}
+
+.icon-stripe:before {
+  content: "S"
+}
+
+.icon-tumblr:before {
+  content: "t"
+}
+
+.icon-twitter:before {
+  content: "T"
+}
+
+.icon-vimeo:before {
+  content: "v"
+}
+
+.icon-visa:before {
+  content: "V"
+}
+
+.icon-x:before {
+  content: "\e606"
+}
+
+.icon-youtube:before {
+  content: "y"
+}
+
+.payment-icons {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default
+}
+
+.payment-icons .icon,.social-icons .icon {
+  font-size: 20px
 }

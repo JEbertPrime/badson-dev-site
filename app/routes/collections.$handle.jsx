@@ -6,8 +6,10 @@ import {
   Money,
   Analytics,
 } from '@shopify/hydrogen';
+import {useContext} from 'react';
 import {useVariantUrl} from '~/lib/variants';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {ColorSetterContext} from '~/lib/colorContext';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -76,18 +78,22 @@ function loadDeferredData({context}) {
 export default function Collection() {
   /** @type {LoaderReturnData} */
   const {collection} = useLoaderData();
+  const setColorScheme = useContext(ColorSetterContext);
 
+  if (!collection) return null;
+  if (collection.metafield.value) {
+    setColorScheme(collection.metafield.value.toLowerCase());
+  }
   return (
     <div className="collection">
-      <h1>{collection.title}</h1>
-      <p className="collection-description">{collection.description}</p>
       <PaginatedResourceSection
         connection={collection.products}
-        resourcesClassName="products-grid"
+        resourcesClassName="grid grid-cols-2 flex-wrap gap-6 max-w-4xl m-auto"
       >
         {({node: product, index}) => (
           <ProductItem
             key={product.id}
+            className="flex-grow"
             product={product}
             loading={index < 8 ? 'eager' : undefined}
           />
@@ -111,7 +117,7 @@ export default function Collection() {
  *   loading?: 'eager' | 'lazy';
  * }}
  */
-function ProductItem({product, loading}) {
+export function ProductItem({product, loading}) {
   const variantUrl = useVariantUrl(product.handle);
   return (
     <Link
@@ -123,16 +129,17 @@ function ProductItem({product, loading}) {
       {product.featuredImage && (
         <Image
           alt={product.featuredImage.altText || product.title}
-          aspectRatio="1/1"
           data={product.featuredImage}
           loading={loading}
           sizes="(min-width: 45em) 400px, 100vw"
         />
       )}
-      <h4>{product.title}</h4>
-      <small>
-        <Money data={product.priceRange.minVariantPrice} />
-      </small>
+      <div className=" invisible max-h-0">
+        <h4>{product.title}</h4>
+        <small>
+          <Money data={product.priceRange.minVariantPrice} />
+        </small>
+      </div>
     </Link>
   );
 }
@@ -181,6 +188,9 @@ const COLLECTION_QUERY = `#graphql
       handle
       title
       description
+      metafield(namespace: "custom", key: "color_scheme"){
+      value
+    }
       products(
         first: $first,
         last: $last,
