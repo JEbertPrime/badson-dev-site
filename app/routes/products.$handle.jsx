@@ -209,6 +209,9 @@ const PRODUCT_FRAGMENT = `#graphql
         width
         altText
         id
+        thumbnailUrl:url(transform:  {
+           maxWidth: 400
+        })
       }
     }
     encodedVariantExistence
