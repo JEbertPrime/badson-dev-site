@@ -6,14 +6,13 @@ import {useSwipeable} from 'react-swipeable';
  *   image: ProductVariantFragment['image'];
  * }}
  */
-export function ProductImageGallery({images}) {
+export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
   const [activeSlide, setActiveSlide] = useState(0);
   const handlers = useSwipeable({
     onSwipedRight: () =>
       setActiveSlide(activeSlide - 1 < 0 ? images.length - 1 : activeSlide - 1),
     onSwipedLeft: () => setActiveSlide((activeSlide + 1) % images.length),
   });
-  const navigationType = 'thumbnails';
   const gridClasses = {
     0: 'grid-cols-0',
     1: 'grid-cols-1',
@@ -28,7 +27,7 @@ export function ProductImageGallery({images}) {
   }
   return (
     <div className="flex flex-col mb-4">
-      <div className="product-image-gallery touch-pan-y" {...handlers}>
+      <div className="product-image-gallery touch-pan-y mb-2" {...handlers}>
         {images.map((image, index) => {
           return (
             <Image

@@ -8,17 +8,45 @@ export function Footer({
   footer: footerPromise,
   header,
   publicStoreDomain,
-  shop,
+  paymentSettings,
 }) {
+  if (
+    paymentSettings.acceptedCardBrands.length == 0 &&
+    paymentSettings.supportedDigitalWallets.length == 0
+  ) {
+    paymentSettings = {
+      acceptedCardBrands: [
+        'visa',
+        'discover',
+        'mastercard',
+        'AMERICAN_EXPRESS',
+      ],
+      supportedDigitalWallets: ['shopify_pay', 'APPLE_PAY'],
+    };
+  }
   return (
     <Suspense>
       <Await resolve={footerPromise}>
         {(footer) => (
-          <footer className="footer text-center pb-4">
-            <span>
+          <footer className="footer text-center gap-6 pb-4 flex justify-between w-full md:flex-row flex-col">
+            <span className=" md:w-1/3"></span>
+            <span className="w-full md:w-1/3">
               © 2025, <a href={publicStoreDomain}>BAD SON</a>
             </span>
-            <div className="flex gap-1"></div>
+            <div className="flex gap-4 justify-center w-full md:w-1/3 self-center min-w-fit">
+              {paymentSettings.acceptedCardBrands.map((brand) => (
+                <i
+                  key={brand + '-icon'}
+                  className={'icon icon-' + brand.toLowerCase()}
+                />
+              ))}
+              {paymentSettings.supportedDigitalWallets.map((brand) => (
+                <i
+                  key={brand + '-icon'}
+                  className={'icon icon-' + brand.toLowerCase()}
+                />
+              ))}
+            </div>
           </footer>
         )}
       </Await>

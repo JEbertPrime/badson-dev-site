@@ -3,8 +3,8 @@
   src: url('/helvetica.otf');
 }
 @font-face {
-  font-family: 'icon';
-  src: url('/icon.woff');
+  font-family: icons;
+  src: url('/icons.woff');
 }
 body {
   font-family:

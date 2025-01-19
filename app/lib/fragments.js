@@ -193,6 +193,10 @@ export const HEADER_QUERY = `#graphql
     id
     name
     description
+    paymentSettings{
+      acceptedCardBrands
+      supportedDigitalWallets
+    }
     primaryDomain {
       url
     }

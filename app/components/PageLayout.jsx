@@ -1,6 +1,5 @@
 import {Await, Link, useLocation} from '@remix-run/react';
 import {Suspense, useId} from 'react';
-import {AnimatePresence, motion} from 'framer-motion';
 
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
@@ -24,6 +23,7 @@ export function PageLayout({
   publicStoreDomain,
   shop,
 }) {
+  const paymentSettings = header?.shop.paymentSettings;
   return (
     <Aside.Provider>
       <CartAside cart={cart} />
@@ -37,21 +37,12 @@ export function PageLayout({
           publicStoreDomain={publicStoreDomain}
         />
       )}
-      <AnimatePresence mode="wait">
-        <motion.main
-          key={useLocation().pathname}
-          initial={{opacity: 0}}
-          animate={{opacity: 1}}
-          transition={{duration: 0.3}}
-        >
-          {children}
-        </motion.main>
-      </AnimatePresence>
+      {children}
       <Footer
         footer={footer}
         header={header}
         publicStoreDomain={publicStoreDomain}
-        shop={shop}
+        paymentSettings={paymentSettings}
       />
     </Aside.Provider>
   );
