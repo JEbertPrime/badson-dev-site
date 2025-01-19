@@ -115,13 +115,14 @@ export default function Product() {
   });
 
   const {title, images} = product;
+  const titleBreakIndex = title.lastIndexOf("'") + 1
   const [first, second, ...galleryImages] = images.nodes;
 
   return (
     <div className="product">
       <ProductImageGallery images={galleryImages} />
       <div className="product-main flex flex-col justify-center align-center text-center">
-        <h1>{title}</h1>
+        <h1>{title.substring(0, titleBreakIndex)}<br/>{title.substring(titleBreakIndex)}</h1>
         <ProductPrice
           price={selectedVariant?.price}
           compareAtPrice={selectedVariant?.compareAtPrice}
@@ -132,11 +133,7 @@ export default function Product() {
           selectedVariant={selectedVariant}
         />
         <br />
-        <br />
-        <p>
-          <strong>Description</strong>
-        </p>
-        <br />
+      
         <ProductDescription description={product.descriptionArray} />
         <br />
       </div>

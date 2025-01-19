@@ -67,7 +67,7 @@ export function ProductForm({productOptions, selectedVariant}) {
                   return (
                     <button
                       type="button"
-                      className={`relative border border-[var(--color-foreground)] rounded-full aspect-square product-options-item${
+                      className={`relative border border-[var(--color-foreground)] rounded-full aspect-square pt-2 product-options-item${
                         exists && !selected ? ' link' : ''
                       } ${
                         selected

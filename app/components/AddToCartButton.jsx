@@ -28,7 +28,7 @@ export function AddToCartButton({
           <button
             type="submit"
             onClick={onClick}
-            className="rounded-full aspect-square border border-[var(--foreground-color)] p-3 uppercase "
+            className="rounded-full relative aspect-square border border-[var(--foreground-color)] p-3 uppercase hover:after:w-[90%] hover:after:h-[90%] hover:after:border-[#98cd78] hover:after:border-2 hover:after:left-0 hover:after:right-0 hover:after:m-auto hover:after:bottom-0 hover:after:top-0 hover:after:rounded-full hover:after:block hover:after:absolute"
             disabled={disabled ?? fetcher.state !== 'idle'}
           >
             {children}
