@@ -21,7 +21,7 @@ export function ProductForm({productOptions, selectedVariant}) {
           <div className="product-options" key={option.name}>
             <h5 className="hidden">{option.name}</h5>
             <div
-              className={`product-options-grid grid m-auto grid-cols-${option.optionValues.length}`}
+              className={`product-options-grid  m-auto grid grid-flow-col auto-cols-min w-fit`}
             >
               {option.optionValues.map((value) => {
                 const {
@@ -41,7 +41,7 @@ export function ProductForm({productOptions, selectedVariant}) {
                   // as an anchor tag
                   return (
                     <Link
-                      className={`product-options-item border ${
+                      className={`product-options-item border aspect-square  ${
                         selected
                           ? 'after:w-full after:h-full after:border-green-500 after:border'
                           : ''
@@ -67,11 +67,17 @@ export function ProductForm({productOptions, selectedVariant}) {
                   return (
                     <button
                       type="button"
-                      className={`relative border border-[var(--color-foreground)] rounded-full aspect-square product-options-item${
+                      className={`relative flex-grow basis-1 ${
+                        swatch ? '' : 'p-2 pt-3'
+                      } border border-[var(--color-foreground)] h-full w-auto rounded-full aspect-square product-options-item${
                         exists && !selected ? ' link' : ''
                       } ${
                         selected
-                          ? 'after:w-[90%] after:h-[90%] after:border-[#98cd78] after:border-2 after:left-0 after:right-0 after:m-auto after:bottom-0 after:top-0 after:rounded-full after:block after:absolute'
+                          ? `${
+                              swatch
+                                ? 'after:w-[100%] after:h-[100%]'
+                                : 'after:w-[90%] after:h-[90%]'
+                            } after:border-[#98cd78] after:border-2 after:left-0 after:right-0 after:m-auto after:bottom-0 after:top-0 after:rounded-full after:block after:absolute`
                           : ''
                       }`}
                       key={option.name + name}
@@ -123,7 +129,10 @@ export function ProductForm({productOptions, selectedVariant}) {
             'Add to cart'
           )
         ) : (
-          'Sold out'
+          <>
+            Sold
+            <br /> Out
+          </>
         )}
       </AddToCartButton>
     </div>
@@ -145,12 +154,12 @@ function ProductOptionSwatch({swatch, name}) {
   return (
     <div
       aria-label={name}
-      className="product-option-label-swatch"
+      className="product-option-label-swatch aspect-square w-9 rounded-full"
       style={{
         backgroundColor: color || 'transparent',
       }}
     >
-      {!!image && <img src={image} alt={name} />}
+      {!!image && <img src={image} className="rounded-full" alt={name} />}
     </div>
   );
 }

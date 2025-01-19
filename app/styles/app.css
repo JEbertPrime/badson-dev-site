@@ -195,9 +195,7 @@ button.reset:hover:not(:has(> *)) {
 
 }
 .header-menu-mobile-toggle {
-  @media (min-width: 48em) {
-    display: none;
-  }
+  
 }
 
 .header-menu-mobile {
@@ -209,11 +207,7 @@ button.reset:hover:not(:has(> *)) {
 .header-menu-desktop {
   display: none;
   grid-gap: 1rem;
-  @media (min-width: 45em) {
-    display: flex;
-    grid-gap: 1rem;
-    margin-left: 3rem;
-  }
+  
 }
 
 .header-menu-item {
@@ -480,17 +474,10 @@ button.reset:hover:not(:has(> *)) {
 
 .product-options-item,
 .product-options-item:disabled {
-  padding: 0.25rem 0.5rem;
-  background-color: transparent;
   font-size: 1rem;
   font-family: inherit;
 }
 
-.product-option-label-swatch {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin: 0.25rem 0;
-}
 
 .product-option-label-swatch img {
   width: 100%;

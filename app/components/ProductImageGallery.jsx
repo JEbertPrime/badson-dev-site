@@ -13,6 +13,7 @@ export function ProductImageGallery({images}) {
       setActiveSlide(activeSlide - 1 < 0 ? images.length - 1 : activeSlide - 1),
     onSwipedLeft: () => setActiveSlide((activeSlide + 1) % images.length),
   });
+  const navigationType = 'thumbnails';
   const gridClasses = {
     0: 'grid-cols-0',
     1: 'grid-cols-1',
@@ -44,27 +45,43 @@ export function ProductImageGallery({images}) {
           );
         })}
       </div>
-      <div className="relative w-fit m-auto">
-        <div
-          className={`grid ${
-            gridClasses[images.length]
-          } m-auto w-fit gap-2 p-absolute left-0 right-0`}
-        >
+      {navigationType == 'thumbnails' ? (
+        <div className="h-24 flex justify-between w-fit gap-2 m-auto">
           {images.map((image, index) => {
             return (
-              <button
-                key={image.id + 'pip'}
-                className={`w-4 h-4 border transition-colors border-[var(--color-foreground)] rounded-full `}
+              <Image
+                key={image.id + '-thumb'}
+                width={400}
+                src={image.thumbnailUrl}
+                className="h-full w-auto"
                 onClick={() => setActiveSlide(index)}
-              ></button>
+              />
             );
           })}
-          <span
-            className={`transition-all duration-300 w-4 h-4  bg-[var(--foreground-color)]  rounded-full absolute`}
-            style={{left: activeSlide * 1.5 + 'rem'}}
-          ></span>
         </div>
-      </div>
+      ) : (
+        <div className="relative w-fit m-auto">
+          <div
+            className={`grid ${
+              gridClasses[images.length]
+            } m-auto w-fit gap-2 p-absolute left-0 right-0`}
+          >
+            {images.map((image, index) => {
+              return (
+                <button
+                  key={image.id + 'pip'}
+                  className={`w-4 h-4 border transition-colors border-[var(--color-foreground)] rounded-full `}
+                  onClick={() => setActiveSlide(index)}
+                ></button>
+              );
+            })}
+            <span
+              className={`transition-all duration-300 w-4 h-4  bg-[var(--foreground-color)]  rounded-full absolute`}
+              style={{left: activeSlide * 1.5 + 'rem'}}
+            ></span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
