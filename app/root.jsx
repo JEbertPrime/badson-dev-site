@@ -100,7 +100,7 @@ async function loadCriticalData({context}) {
     storefront.query(HEADER_QUERY, {
       cache: storefront.CacheLong(),
       variables: {
-        headerMenuHandle: 'headless-menu', // Adjust to your header menu handle
+        headerMenuHandle: 'main-menu', // Adjust to your header menu handle
       },
     }),
     // Add other queries here, so that they are loaded in parallel
@@ -155,7 +155,7 @@ export function Layout({children}) {
         <Meta />
         <Links />
       </head>
-      <body className={colorScheme}>
+      <body className={colorScheme.toLowerCase()}>
         {data ? (
           <Analytics.Provider
             cart={data.cart}

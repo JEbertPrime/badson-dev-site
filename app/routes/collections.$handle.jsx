@@ -81,8 +81,10 @@ export default function Collection() {
   const setColorScheme = useContext(ColorSetterContext);
 
   if (!collection) return null;
-  if (collection.metafield.value) {
+  if (collection.metafield?.value) {
     setColorScheme(collection.metafield.value.toLowerCase());
+  } else {
+    setColorScheme('dark');
   }
   return (
     <div className="collection">

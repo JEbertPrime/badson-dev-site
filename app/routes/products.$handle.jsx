@@ -1,5 +1,6 @@
 import {defer} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
+import {useContext} from 'react';
 import {
   getSelectedProductOptions,
   Analytics,
@@ -12,7 +13,7 @@ import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImageGallery} from '~/components/ProductImageGallery';
 import {ProductForm} from '~/components/ProductForm';
 import {ProductDescription} from '~/components/ProductDescription';
-
+import {ColorSetterContext} from '~/lib/colorContext';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -97,7 +98,6 @@ function loadDeferredData({context, params}) {
 export default function Product() {
   /** @type {LoaderReturnData} */
   const {product} = useLoaderData();
-
   // Optimistically selects a variant with given available variant information
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
@@ -113,16 +113,25 @@ export default function Product() {
     ...product,
     selectedOrFirstAvailableVariant: selectedVariant,
   });
+  const setColorScheme = useContext(ColorSetterContext);
+  console.log(product);
+  if (product?.collections?.nodes[0].metafield) {
+    setColorScheme(product.collections.nodes[0].metafield.value);
+  }
 
   const {title, images} = product;
-  const titleBreakIndex = title.lastIndexOf("'") + 1
+  const titleBreakIndex = title.lastIndexOf("'") + 1;
   const [first, second, ...galleryImages] = images.nodes;
 
   return (
     <div className="product">
       <ProductImageGallery images={galleryImages} />
       <div className="product-main flex flex-col justify-center align-center text-center">
-        <h1>{title.substring(0, titleBreakIndex)}<br/>{title.substring(titleBreakIndex)}</h1>
+        <h1>
+          {title.substring(0, titleBreakIndex)}
+          <br />
+          {title.substring(titleBreakIndex)}
+        </h1>
         <ProductPrice
           price={selectedVariant?.price}
           compareAtPrice={selectedVariant?.compareAtPrice}
@@ -133,7 +142,7 @@ export default function Product() {
           selectedVariant={selectedVariant}
         />
         <br />
-      
+
         <ProductDescription description={product.descriptionArray} />
         <br />
       </div>
@@ -202,6 +211,15 @@ const PRODUCT_FRAGMENT = `#graphql
     handle
     descriptionHtml
     description
+    collections(first: 2){
+      
+        nodes{
+          metafield(key: "color_scheme", namespace: "custom"){
+            value
+          }
+        }
+      
+    }
     images(first:10 ){
       nodes{
         url(transform:{maxWidth: 1200})
