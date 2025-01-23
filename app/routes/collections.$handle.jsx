@@ -90,7 +90,7 @@ export default function Collection() {
     <div className="collection">
       <PaginatedResourceSection
         connection={collection.products}
-        resourcesClassName="grid grid-cols-2 flex-wrap gap-6 max-w-4xl m-auto"
+        resourcesClassName="grid grid-cols-2 flex-wrap gap-6 max-w-4xl m-auto opacity-0 animate-fadein animate-forwards animation-delay-[333ms]"
       >
         {({node: product, index}) => (
           <ProductItem

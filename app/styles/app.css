@@ -23,6 +23,9 @@ body.dark{
 
 
 }
+*{
+  transition: background-color 333ms ease;
+}
 body.dark .cart-icon{
   filter: invert();
 }

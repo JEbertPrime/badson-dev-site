@@ -80,11 +80,13 @@ function FeaturedCollection({collection}) {
   const setColorScheme = useContext(ColorSetterContext);
 
   if (!collection) return null;
-  if (collection.metafield.value) {
+  if (collection.metafield?.value) {
     setColorScheme(collection.metafield.value.toLowerCase());
+  } else {
+    setColorScheme('dark');
   }
   return (
-    <div className="collection grid grid-cols-2 flex-wrap gap-6 max-w-4xl m-auto">
+    <div className="collection grid grid-cols-2 flex-wrap gap-6 max-w-4xl m-auto opacity-0 animate-fadein animate-forwards animation-delay-[333ms]">
       {collection.products.nodes.map((product, index) => (
         <ProductItem
           key={product.id}
