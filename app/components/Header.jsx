@@ -1,5 +1,5 @@
 import {Suspense} from 'react';
-import {Await, NavLink, useAsyncValue} from '@remix-run/react';
+import {Await, NavLink, useAsyncValue, Link} from '@remix-run/react';
 import {useAnalytics, useOptimisticCart, Image} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
 import cartBag from '~/assets/bag.avif?url';
@@ -121,27 +121,17 @@ function CartBadge({count}) {
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
   return (
-    <a
-      href="/cart"
+    <Link
+      to="/cart"
       className={
         'relative' +
         (cart?.totalQuantity > 0
           ? ' after:rounded-full after:bg-[#a6e780] after:w-2 after:block after:h-2 after:absolute  after:top-[10px] after:right-2'
           : '')
       }
-      onClick={(e) => {
-        e.preventDefault();
-        open('cart');
-        publish('cart_viewed', {
-          cart,
-          prevCart,
-          shop,
-          url: window.location.href || '',
-        });
-      }}
     >
       <Image className={`cart-icon `} width={24} src={cartBag} />
-    </a>
+    </Link>
   );
 }
 

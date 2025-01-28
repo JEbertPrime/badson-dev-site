@@ -17,21 +17,19 @@ export function CartLineItem({layout, line}) {
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const {close} = useAside();
-
   return (
-    <li key={id} className="cart-line">
+    <li key={id} className="cart-line w-full flex items-center">
       {image && (
         <Image
           alt={title}
-          aspectRatio="1/1"
           data={image}
-          height={100}
           loading="lazy"
           width={100}
+          className="h-auto"
         />
       )}
 
-      <div>
+      <div className="flex-grow">
         <Link
           prefetch="intent"
           to={lineItemUrl}
@@ -41,21 +39,26 @@ export function CartLineItem({layout, line}) {
             }
           }}
         >
-          <p>
-            <strong>{product.title}</strong>
+          <p className="text-sm flex w-full justify-between mb-2">
+            <span>{product.title}</span>
+            <span>
+              <ProductPrice price={line?.cost?.totalAmount} />
+            </span>
           </p>
         </Link>
-        <ProductPrice price={line?.cost?.totalAmount} />
-        <ul>
+        <ul className="mb-2">
           {selectedOptions.map((option) => (
             <li key={option.name}>
-              <small>
-                {option.name}: {option.value}
-              </small>
+              <small>{option.value}</small>
             </li>
           ))}
         </ul>
         <CartLineQuantity line={line} />
+        <ul>{line.properties}</ul>
+        <CartLineRemoveButton
+          lineIds={[line.lineId]}
+          disabled={!!line.isOptimistic}
+        />
       </div>
     </li>
   );
@@ -74,8 +77,7 @@ function CartLineQuantity({line}) {
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
-    <div className="cart-line-quantity">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
+    <div className="cart-line-quantity flex justify-between max-w-36 text-lg items-center">
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"
@@ -86,7 +88,7 @@ function CartLineQuantity({line}) {
           <span>&#8722; </span>
         </button>
       </CartLineUpdateButton>
-      &nbsp;
+      <small>{quantity} </small>
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button
           aria-label="Increase quantity"
@@ -98,7 +100,6 @@ function CartLineQuantity({line}) {
         </button>
       </CartLineUpdateButton>
       &nbsp;
-      <CartLineRemoveButton lineIds={[lineId]} disabled={!!isOptimistic} />
     </div>
   );
 }

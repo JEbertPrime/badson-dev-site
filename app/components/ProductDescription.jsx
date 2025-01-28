@@ -1,6 +1,12 @@
-import {useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 export const ProductDescription = ({description}) => {
   const [activeTab, setActiveTab] = useState(0);
+  const [minHeight, setMinHeight] = useState(0);
+  const descriptionDiv = useRef(null);
+  useEffect(() => {
+    if (minHeight < descriptionDiv.current.clientHeight)
+      setMinHeight(descriptionDiv.current.clientHeight);
+  }, [activeTab]);
   return (
     <section aria-label="Product Description">
       <div className="flex justify-center gap-2 m-auto">
@@ -22,7 +28,9 @@ export const ProductDescription = ({description}) => {
         })}
       </div>
       <div
+        ref={descriptionDiv}
         className="text-left max-w-screen-sm m-auto"
+        style={{minHeight: minHeight + 'px'}}
         dangerouslySetInnerHTML={{__html: description[activeTab][1]}}
       ></div>
     </section>

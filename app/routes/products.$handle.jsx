@@ -114,15 +114,13 @@ export default function Product() {
     selectedOrFirstAvailableVariant: selectedVariant,
   });
   const setColorScheme = useContext(ColorSetterContext);
-  console.log(product);
   if (product?.collections?.nodes[0].metafield) {
     setColorScheme(product.collections.nodes[0].metafield.value);
   }
 
   const {title, images} = product;
   const titleBreakIndex = title.lastIndexOf("'") + 1;
-  const [first, second, ...galleryImages] = images.nodes;
-
+  const [...galleryImages] = images.nodes;
   return (
     <div className="product">
       <ProductImageGallery images={galleryImages} />

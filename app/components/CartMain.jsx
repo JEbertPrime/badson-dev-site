@@ -22,16 +22,26 @@ export function CartMain({layout, cart: originalCart}) {
   const cartHasItems = cart?.totalQuantity > 0;
 
   return (
-    <div className={className}>
+    <div
+      className={
+        className + 'w-full max-w-screen-xl m-auto flex gap-4 justify-center'
+      }
+    >
+      <div className="w-2/3 ">
+        <div className="w-full flex justify-between">
+          <p className="text-sm">Shopping Bag</p>
+          <p className="text-sm">Total</p>
+        </div>
+        <hr className=" border-b-2 border-white w-full mt-2" />
+        <ul>
+          {(cart?.lines?.nodes ?? []).map((line) => (
+            <CartLineItem key={line.id} line={line} layout={layout} />
+          ))}
+        </ul>
+      </div>
       <CartEmpty hidden={linesCount} layout={layout} />
       <div className="cart-details">
-        <div aria-labelledby="cart-lines">
-          <ul>
-            {(cart?.lines?.nodes ?? []).map((line) => (
-              <CartLineItem key={line.id} line={line} layout={layout} />
-            ))}
-          </ul>
-        </div>
+        <div aria-labelledby="cart-lines"></div>
         {cartHasItems && <CartSummary cart={cart} layout={layout} />}
       </div>
     </div>

@@ -113,6 +113,12 @@ export function ProductForm({productOptions, selectedVariant}) {
                   merchandiseId: selectedVariant.id,
                   quantity: 1,
                   selectedVariant,
+                  attributes: [
+                    {
+                      key: 'Pre-order',
+                      value: true,
+                    },
+                  ],
                 },
               ]
             : []
@@ -126,7 +132,7 @@ export function ProductForm({productOptions, selectedVariant}) {
               Order
             </span>
           ) : (
-            'Add to cart'
+            'Add'
           )
         ) : (
           <>
