@@ -1,6 +1,6 @@
 import {defer} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import {
   getSelectedProductOptions,
   Analytics,
@@ -120,10 +120,17 @@ export default function Product() {
 
   const {title, images} = product;
   const titleBreakIndex = title.lastIndexOf("'") + 1;
-  const [...galleryImages] = images.nodes;
+  const [...galleryImages] = selectedVariant.metafield?.references?.nodes
+    ? selectedVariant.metafield.references.nodes.map((node) => ({
+        ...node.image,
+        thumbnailUrl: node.previewImage.url,
+      }))
+    : images.nodes;
+
+  const [variantImages, setVariantImages] = useState(galleryImages);
   return (
     <div className="product">
-      <ProductImageGallery images={galleryImages} />
+      <ProductImageGallery images={variantImages} />
       <div className="product-main flex flex-col justify-center align-center text-center">
         <h1>
           {title.substring(0, titleBreakIndex)}
@@ -138,6 +145,7 @@ export default function Product() {
         <ProductForm
           productOptions={productOptions}
           selectedVariant={selectedVariant}
+          setVariantImages={setVariantImages}
         />
         <br />
 
@@ -197,6 +205,28 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
     unitPrice {
       amount
       currencyCode
+    }
+    metafield(namespace: "custom", key: "variant_images"){
+      references(first:10){
+              nodes{
+                  ... on MediaImage{
+                    alt
+                    id
+
+                    image{
+                      height
+                      width
+                      url
+                      id
+                    }
+                    previewImage{
+                      url
+                    }
+                  }
+                
+
+              }
+            }
     }
   }
 `;

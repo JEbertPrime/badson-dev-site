@@ -8,7 +8,11 @@ import {useAside} from './Aside';
  *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
  * }}
  */
-export function ProductForm({productOptions, selectedVariant}) {
+export function ProductForm({
+  productOptions,
+  selectedVariant,
+  setVariantImages,
+}) {
   const navigate = useNavigate();
   const {open} = useAside();
   return (
@@ -34,6 +38,13 @@ export function ProductForm({productOptions, selectedVariant}) {
                   isDifferentProduct,
                   swatch,
                 } = value;
+                const variantImages = value.metafield?.references?.nodes.map(
+                  (node) => ({
+                    ...node.image,
+                    thumbnailUrl: node.previewImage.url,
+                  }),
+                );
+
                 if (isDifferentProduct) {
                   // SEO
                   // When the variant is a combined listing child product
@@ -53,6 +64,11 @@ export function ProductForm({productOptions, selectedVariant}) {
                       to={`/products/${handle}?${variantUriQuery}`}
                       style={{
                         opacity: available ? 1 : 0.3,
+                      }}
+                      onClick={() => {
+                        if (!selected && variantImages) {
+                          setVariantImages(variantImages);
+                        }
                       }}
                     >
                       <ProductOptionSwatch swatch={swatch} name={name} />
@@ -84,6 +100,10 @@ export function ProductForm({productOptions, selectedVariant}) {
                       disabled={!exists}
                       onClick={() => {
                         if (!selected) {
+                          if (variantImages) {
+                            setVariantImages(variantImages);
+                          }
+
                           navigate(`?${variantUriQuery}`, {
                             replace: true,
                             preventScrollReset: true,

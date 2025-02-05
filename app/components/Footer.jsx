@@ -28,7 +28,7 @@ export function Footer({
     <Suspense>
       <Await resolve={footerPromise}>
         {(footer) => (
-          <footer className="footer text-center gap-6 pb-4 flex justify-between w-full md:flex-row flex-col">
+          <footer className="footer text-center gap-6 pb-4 mt-8 flex justify-between w-full md:flex-row flex-col">
             <span className=" md:w-1/3"></span>
             <span className="w-full md:w-1/3">
               © 2025, <a href={publicStoreDomain}>BAD SON</a>

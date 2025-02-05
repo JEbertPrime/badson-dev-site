@@ -23,6 +23,9 @@ body.dark{
 
 
 }
+body{
+  padding-top: 60px;
+}
 *{
   transition: background-color 333ms ease;
 }

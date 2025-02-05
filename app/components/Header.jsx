@@ -10,7 +10,7 @@ import cartBag from '~/assets/bag.avif?url';
 export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
   const {shop, menu} = header;
   return (
-    <header className="">
+    <header className="fixed top-0 w-full z-50">
       <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
     </header>
   );

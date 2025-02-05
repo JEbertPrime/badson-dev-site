@@ -35,6 +35,7 @@ export function PageLayout({
           cart={cart}
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
+          className="fixed top-0 w-full"
         />
       )}
       {children}
