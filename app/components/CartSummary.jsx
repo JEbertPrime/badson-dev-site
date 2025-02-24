@@ -14,32 +14,34 @@ export function CartSummary({cart, layout}) {
       <dl className="cart-subtotal">
         <dt>Subtotal</dt>
         <dd>
-          {cart.cost?.subtotalAmount?.amount ? (
-            <Money data={cart.cost?.subtotalAmount} />
+          {cart?.cost?.subtotalAmount?.amount ? (
+            <Money data={cart?.cost?.subtotalAmount} />
           ) : (
             '-'
           )}
         </dd>
       </dl>
-      <CartDiscounts discountCodes={cart.discountCodes} />
-      <CartGiftCard giftCardCodes={cart.appliedGiftCards} />
-      <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
+      <CartDiscounts discountCodes={cart?.discountCodes} />
     </div>
   );
 }
 /**
  * @param {{checkoutUrl?: string}}
  */
-function CartCheckoutActions({checkoutUrl}) {
+export function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+    <>
+      <a
+        className=" hover:no-underline w-full text-center text-sm align-bottom p-2 mx-auto block border-foreground border-2 bg-foreground text-background "
+        href={checkoutUrl}
+        target="_self"
+      >
+        <p className="text-sm">CHECK OUT</p>
       </a>
       <br />
-    </div>
+    </>
   );
 }
 

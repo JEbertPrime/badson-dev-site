@@ -38,12 +38,11 @@ export function ProductForm({
                   isDifferentProduct,
                   swatch,
                 } = value;
-                const variantImages = value.metafield?.references?.nodes.map(
-                  (node) => ({
+                const variantImages =
+                  value.variant.metafield?.references?.nodes.map((node) => ({
                     ...node.image,
                     thumbnailUrl: node.previewImage.url,
-                  }),
-                );
+                  }));
 
                 if (isDifferentProduct) {
                   // SEO
@@ -123,9 +122,7 @@ export function ProductForm({
       })}
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
-        onClick={() => {
-          open('cart');
-        }}
+        onClick={() => {}}
         lines={
           selectedVariant
             ? [
@@ -136,7 +133,7 @@ export function ProductForm({
                   attributes: [
                     {
                       key: 'Pre-order',
-                      value: true,
+                      value: 'true',
                     },
                   ],
                 },

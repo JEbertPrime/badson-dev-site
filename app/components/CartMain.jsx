@@ -2,7 +2,7 @@ import {useOptimisticCart} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import {useAside} from '~/components/Aside';
 import {CartLineItem} from '~/components/CartLineItem';
-import {CartSummary} from './CartSummary';
+import {CartSummary, CartCheckoutActions} from './CartSummary';
 
 /**
  * The main cart component that displays the cart items and summary.
@@ -24,7 +24,8 @@ export function CartMain({layout, cart: originalCart}) {
   return (
     <div
       className={
-        className + 'w-full max-w-screen-xl m-auto flex gap-4 justify-center'
+        className +
+        'w-full px-8 max-w-screen-xl m-auto flex gap-4 justify-center'
       }
     >
       <div className="w-2/3 ">
@@ -38,11 +39,12 @@ export function CartMain({layout, cart: originalCart}) {
             <CartLineItem key={line.id} line={line} layout={layout} />
           ))}
         </ul>
+        <CartSummary cart={cart} layout={layout} />
       </div>
       <CartEmpty hidden={linesCount} layout={layout} />
-      <div className="cart-details">
+      <div className="cart-details flex flex-col justify-start w-1/3 p-3">
         <div aria-labelledby="cart-lines"></div>
-        {cartHasItems && <CartSummary cart={cart} layout={layout} />}
+        {cartHasItems && <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />}
       </div>
     </div>
   );
