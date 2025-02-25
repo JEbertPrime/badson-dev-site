@@ -33,16 +33,16 @@ export function CartMain({layout, cart: originalCart}) {
           <p className="text-sm">Shopping Bag</p>
           <p className="text-sm">Total</p>
         </div>
-        <hr className=" border-b-2 border-white w-full mt-4 mb-2" />
+        <hr className=" border-b-2 border-foreground w-full mt-4 mb-2" />
         <ul>
           {(cart?.lines?.nodes ?? []).map((line) => (
             <CartLineItem key={line.id} line={line} layout={layout} />
           ))}
         </ul>
-        <hr className=" border-b-2 border-white w-full mt-4 mb-4" />
+        <hr className=" border-b-2 border-foreground w-full mt-4 mb-4" />
 
         <CartSummary cart={cart} layout={layout} />
-        <hr className=" border-b-2 border-white w-full mt-4 mb-4" />
+        <hr className=" border-b-2 border-foreground w-full mt-4 mb-4" />
       </div>
       <CartEmpty hidden={linesCount} layout={layout} />
       <div className="cart-details md:order-2 order-1 flex flex-col justify-start md:w-1/3 md:p-3">

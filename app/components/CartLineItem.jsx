@@ -43,7 +43,7 @@ export function CartLineItem({layout, line}) {
             }
           }}
         >
-          <p className="text-sm flex w-full justify-between mb-2">
+          <p className="text-xs flex w-full justify-between mb-2">
             <span>{product.title}</span>
           </p>
         </Link>

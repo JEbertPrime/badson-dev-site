@@ -25,7 +25,7 @@ export function ProductForm({
           <div className="product-options" key={option.name}>
             <h5 className="hidden">{option.name}</h5>
             <div
-              className={`product-options-grid  m-auto grid grid-flow-col auto-cols-min w-fit`}
+              className={`product-options-grid  m-auto grid grid-flow-col auto-cols-min`}
             >
               {option.optionValues.map((value) => {
                 const {

@@ -285,11 +285,6 @@ button.reset:hover:not(:has(> *)) {
   padding: 0.75rem 0;
 }
 
-.cart-line img {
-  height: 100%;
-  display: block;
-  margin-right: 0.75rem;
-}
 
 .cart-summary-page {
   position: relative;

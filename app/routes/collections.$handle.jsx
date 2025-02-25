@@ -90,7 +90,7 @@ export default function Collection() {
     <div className="collection">
       <PaginatedResourceSection
         connection={collection.products}
-        resourcesClassName="grid grid-cols-2 flex-wrap gap-6 max-w-4xl m-auto opacity-0 animate-fadein animate-forwards animation-delay-[333ms]"
+        resourcesClassName="grid grid-cols-2 flex-wrap p-6 gap-6 max-w-4xl m-auto opacity-0 animate-fadein animate-forwards animation-delay-[333ms]"
       >
         {({node: product, index}) => (
           <ProductItem
@@ -121,6 +121,9 @@ export default function Collection() {
  */
 export function ProductItem({product, loading}) {
   const variantUrl = useVariantUrl(product.handle);
+  const colorOption = product?.options?.find(
+    (option) => option.name == 'Color',
+  );
   return (
     <Link
       className="product-item"
@@ -141,6 +144,15 @@ export function ProductItem({product, loading}) {
         <small className="text-xs font-light">
           <Money data={product.priceRange.minVariantPrice} />
         </small>
+        <div className="flex w-full gap-2 justify-center">
+          {colorOption?.optionValues.map((value) => (
+            <span
+              key={value.id}
+              className="w-6 h-6 rounded-full border border-foreground block"
+              style={{backgroundColor: value.swatch.color}}
+            ></span>
+          ))}
+        </div>
       </div>
     </Link>
   );
@@ -155,6 +167,22 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     id
     handle
     title
+    options{
+      name
+      optionValues{
+        
+        id
+        swatch{
+
+          color
+          image{
+            previewImage{
+              url
+            }
+          }
+        }
+      }
+    }
     featuredImage {
       id
       altText
