@@ -26,13 +26,13 @@ export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
     return <div className="product-image-gallery" />;
   }
   return (
-    <div className="flex flex-col mb-4">
+    <div className="flex flex-col mb-4 w-full">
       <div className="product-image-gallery touch-pan-y mb-2" {...handlers}>
         {images.map((image, index) => {
           return (
             <Image
               loading="eager"
-              className={`absolute m-auto left-0 right-0 transition-opacity ${
+              className={`absolute m-auto w-full h-auto left-0 right-0 transition-opacity ${
                 activeSlide == index ? 'opacity-100' : 'opacity-0'
               }`}
               src={image.url}

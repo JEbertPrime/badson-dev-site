@@ -9,7 +9,7 @@ export const ProductDescription = ({description}) => {
   }, [activeTab]);
   return (
     <section aria-label="Product Description" className="product-description ">
-      <div className="flex justify-center gap-2 m-auto">
+      <div className="flex justify-center gap-6 m-auto">
         {description.map((tab, i) => {
           return (
             <button
@@ -29,7 +29,7 @@ export const ProductDescription = ({description}) => {
       </div>
       <div
         ref={descriptionDiv}
-        className="text-left max-w-screen-sm m-auto p-4"
+        className="text-left max-w-screen-sm m-auto mt-6 p-4"
         style={{minHeight: minHeight + 'px'}}
         dangerouslySetInnerHTML={{__html: description[activeTab][1]}}
       ></div>

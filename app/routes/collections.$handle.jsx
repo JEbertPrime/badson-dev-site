@@ -140,15 +140,15 @@ export function ProductItem({product, loading}) {
         />
       )}
       <div className=" text-center mt-2 text-sm">
-        <h4 className="text-xs font-light">{product.title}</h4>
-        <small className="text-xs font-light">
+        <h4 className="text-xs ">{product.title}</h4>
+        <small className="text-xs ">
           <Money data={product.priceRange.minVariantPrice} />
         </small>
-        <div className="flex w-full gap-2 justify-center">
+        <div className="flex mt-2 w-full gap-2 justify-center">
           {colorOption?.optionValues.map((value) => (
             <span
               key={value.id}
-              className="w-6 h-6 rounded-full border border-foreground block"
+              className="w-4 h-4 rounded-full border border-foreground block"
               style={{backgroundColor: value.swatch.color}}
             ></span>
           ))}

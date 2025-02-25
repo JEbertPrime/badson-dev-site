@@ -21,7 +21,7 @@ export function CartLineItem({layout, line}) {
     <li
       key={id}
       style={{gridTemplateColumns: '1fr 2fr 1fr'}}
-      className="cart-line w-full grid  items-center"
+      className="cart-line w-full grid gap-2 items-center"
     >
       {image && (
         <Image

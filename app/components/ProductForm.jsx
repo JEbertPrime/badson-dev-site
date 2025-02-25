@@ -1,6 +1,8 @@
 import {Link, useNavigate} from '@remix-run/react';
 import {AddToCartButton} from './AddToCartButton';
 import {useAside} from './Aside';
+import {useFetcher} from '@remix-run/react';
+import {useEffect, useState} from 'react';
 
 /**
  * @param {{
@@ -15,6 +17,15 @@ export function ProductForm({
 }) {
   const navigate = useNavigate();
   const {open} = useAside();
+  const addFetcher = useFetcher({key: 'add-fetcher'});
+  const [addToCartText, setAddToCartText] = useState('Add');
+
+  useEffect(() => {
+    if (addFetcher.state == 'loading') {
+      setAddToCartText('Added');
+      setTimeout(() => setAddToCartText('Add'), 1500);
+    }
+  }, [addFetcher.state]);
   return (
     <div className="product-form m-auto">
       {productOptions.map((option) => {
@@ -84,7 +95,7 @@ export function ProductForm({
                       type="button"
                       className={`relative  basis-1 block w-12 h-12 ${
                         swatch ? '' : 'p-2 pt-3'
-                      } border border-[var(--color-foreground)] h-full w-auto rounded-full aspect-square product-options-item${
+                      } border border-[var(--color-foreground)]  rounded-full aspect-square product-options-item${
                         exists && !selected ? ' link' : ''
                       } ${
                         selected
@@ -149,7 +160,7 @@ export function ProductForm({
               Order
             </span>
           ) : (
-            'Add'
+            addToCartText
           )
         ) : (
           <>
