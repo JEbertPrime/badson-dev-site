@@ -20,7 +20,7 @@ export function CartSummary({cart, layout}) {
             )}
           </dd>
         </div>
-        {cart?.buyerIdentity.customer ? (
+        {cart?.buyerIdentity?.customer ? (
           <div className="cart-subtotal w-full flex flex-row justify-between">
             <dt>Estimated Total</dt>
             <dd>
