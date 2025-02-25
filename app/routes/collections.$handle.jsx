@@ -136,9 +136,9 @@ export function ProductItem({product, loading}) {
           sizes="(min-width: 45em) 400px, 100vw"
         />
       )}
-      <div className=" invisible max-h-0">
-        <h4>{product.title}</h4>
-        <small>
+      <div className=" text-center mt-2 text-sm">
+        <h4 className="text-xs font-light">{product.title}</h4>
+        <small className="text-xs font-light">
           <Money data={product.priceRange.minVariantPrice} />
         </small>
       </div>

@@ -18,7 +18,11 @@ export function CartLineItem({layout, line}) {
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const {close} = useAside();
   return (
-    <li key={id} className="cart-line w-full flex items-center">
+    <li
+      key={id}
+      style={{gridTemplateColumns: '1fr 2fr 1fr'}}
+      className="cart-line w-full grid  items-center"
+    >
       {image && (
         <Image
           alt={title}
@@ -29,7 +33,7 @@ export function CartLineItem({layout, line}) {
         />
       )}
 
-      <div className="flex-grow">
+      <div className="flex-grow h-full">
         <Link
           prefetch="intent"
           to={lineItemUrl}
@@ -41,9 +45,6 @@ export function CartLineItem({layout, line}) {
         >
           <p className="text-sm flex w-full justify-between mb-2">
             <span>{product.title}</span>
-            <span>
-              <ProductPrice price={line?.cost?.totalAmount} />
-            </span>
           </p>
         </Link>
         <ul className="mb-2">
@@ -60,6 +61,9 @@ export function CartLineItem({layout, line}) {
           disabled={!!line.isOptimistic}
         />
       </div>
+      <span className="h-full ">
+        <ProductPrice price={line?.cost?.totalAmount} />
+      </span>
     </li>
   );
 }

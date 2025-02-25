@@ -7,21 +7,32 @@ import {useRef} from 'react';
 export function CartSummary({cart, layout}) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
-
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
-      <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
-        <dd>
-          {cart?.cost?.subtotalAmount?.amount ? (
-            <Money data={cart?.cost?.subtotalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd>
+      <dl className="cart-subtotal w-full flex flex-row justify-between">
+        <div className="cart-subtotal w-full flex flex-row justify-between">
+          <dt>Subtotal</dt>
+          <dd>
+            {cart?.cost?.subtotalAmount?.amount ? (
+              <Money data={cart?.cost?.subtotalAmount} />
+            ) : (
+              '-'
+            )}
+          </dd>
+        </div>
+        {cart.buyerIdentity.customer ? (
+          <div className="cart-subtotal w-full flex flex-row justify-between">
+            <dt>Estimated Total</dt>
+            <dd>
+              {cart?.cost?.totalAmount?.amount ? (
+                <Money data={cart?.cost?.totalAmount} />
+              ) : (
+                '-'
+              )}
+            </dd>
+          </div>
+        ) : null}
       </dl>
-      <CartDiscounts discountCodes={cart?.discountCodes} />
     </div>
   );
 }
