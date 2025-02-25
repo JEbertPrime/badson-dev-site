@@ -1,6 +1,6 @@
 import {defer} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
-import {useContext, useState} from 'react';
+import {useContext, useState, useEffect} from 'react';
 import {
   getSelectedProductOptions,
   Analytics,
@@ -114,9 +114,12 @@ export default function Product() {
     selectedOrFirstAvailableVariant: selectedVariant,
   });
   const setColorScheme = useContext(ColorSetterContext);
-  if (product?.collections?.nodes[0].metafield) {
-    setColorScheme(product.collections.nodes[0].metafield.value);
-  }
+
+  useEffect(() => {
+    if (product?.collections?.nodes[0].metafield) {
+      setColorScheme(product.collections.nodes[0].metafield.value);
+    }
+  });
 
   const {title, images} = product;
   const titleBreakIndex = title.lastIndexOf("'") + 1;

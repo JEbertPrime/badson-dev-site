@@ -22,10 +22,10 @@ export function ProductForm({
         if (option.optionValues.length === 1) return null;
 
         return (
-          <div className="product-options w-fit m-auto" key={option.name}>
+          <div className="product-options  m-auto" key={option.name}>
             <h5 className="hidden">{option.name}</h5>
             <div
-              className={`product-options-grid  m-auto max-w-full w-full grid grid-flow-col auto-cols-min`}
+              className={`product-options-grid  m-auto  justify-center gap-2 flex flex-row `}
             >
               {option.optionValues.map((value) => {
                 const {
@@ -51,7 +51,7 @@ export function ProductForm({
                   // as an anchor tag
                   return (
                     <Link
-                      className={`product-options-item border aspect-square  ${
+                      className={`product-options-item border block aspect-square  ${
                         selected
                           ? 'after:w-full after:h-full after:border-green-500 after:border'
                           : ''
@@ -82,7 +82,7 @@ export function ProductForm({
                   return (
                     <button
                       type="button"
-                      className={`relative flex-grow basis-1 ${
+                      className={`relative  basis-1 block w-12 h-12 ${
                         swatch ? '' : 'p-2 pt-3'
                       } border border-[var(--color-foreground)] h-full w-auto rounded-full aspect-square product-options-item${
                         exists && !selected ? ' link' : ''
@@ -177,7 +177,7 @@ function ProductOptionSwatch({swatch, name}) {
   return (
     <div
       aria-label={name}
-      className="product-option-label-swatch aspect-square w-9 rounded-full"
+      className="product-option-label-swatch aspect-square w-12 rounded-full"
       style={{
         backgroundColor: color || 'transparent',
       }}

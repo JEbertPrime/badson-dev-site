@@ -485,8 +485,6 @@ button.reset:hover:not(:has(> *)) {
 
 .product-options-grid {
   display: flex;
-  flex-wrap: wrap;
-  grid-gap: 0.75rem;
 }
 
 .product-options-item,
