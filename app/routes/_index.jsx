@@ -1,6 +1,6 @@
 import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
-import {Suspense, useContext} from 'react';
+import {Suspense, useContext, useEffect} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {ProductItem} from './collections.$handle';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
@@ -80,11 +80,13 @@ function FeaturedCollection({collection}) {
   const setColorScheme = useContext(ColorSetterContext);
 
   if (!collection) return null;
-  if (collection.metafield?.value) {
-    setColorScheme(collection.metafield.value.toLowerCase());
-  } else {
-    setColorScheme('dark');
-  }
+  useEffect(() => {
+    if (collection.metafield?.value) {
+      setColorScheme(collection.metafield.value.toLowerCase());
+    } else {
+      setColorScheme('dark');
+    }
+  });
   return (
     <div className="collection grid grid-cols-2 flex-wrap p-6 gap-6 max-w-4xl m-auto opacity-0 animate-fadein animate-forwards animation-delay-[333ms]">
       {collection.products.nodes.map((product, index) => (

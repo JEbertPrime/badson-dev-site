@@ -22,10 +22,10 @@ export function ProductForm({
         if (option.optionValues.length === 1) return null;
 
         return (
-          <div className="product-options" key={option.name}>
+          <div className="product-options w-fit m-auto" key={option.name}>
             <h5 className="hidden">{option.name}</h5>
             <div
-              className={`product-options-grid  m-auto grid grid-flow-col auto-cols-min`}
+              className={`product-options-grid  m-auto max-w-full w-full grid grid-flow-col auto-cols-min`}
             >
               {option.optionValues.map((value) => {
                 const {

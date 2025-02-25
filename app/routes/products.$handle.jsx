@@ -131,7 +131,7 @@ export default function Product() {
   return (
     <div className="product">
       <ProductImageGallery images={variantImages} />
-      <div className="product-main flex flex-col justify-center align-center text-center">
+      <div className="product-main mx-auto flex flex-col justify-center align-center text-center">
         <h1>
           {title.substring(0, titleBreakIndex)}
           <br />

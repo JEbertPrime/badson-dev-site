@@ -8,7 +8,7 @@ export const ProductDescription = ({description}) => {
       setMinHeight(descriptionDiv.current.clientHeight);
   }, [activeTab]);
   return (
-    <section aria-label="Product Description">
+    <section aria-label="Product Description" className="product-description ">
       <div className="flex justify-center gap-2 m-auto">
         {description.map((tab, i) => {
           return (
@@ -29,7 +29,7 @@ export const ProductDescription = ({description}) => {
       </div>
       <div
         ref={descriptionDiv}
-        className="text-left max-w-screen-sm m-auto"
+        className="text-left max-w-screen-sm m-auto p-4"
         style={{minHeight: minHeight + 'px'}}
         dangerouslySetInnerHTML={{__html: description[activeTab][1]}}
       ></div>
