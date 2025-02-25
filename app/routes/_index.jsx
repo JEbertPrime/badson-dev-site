@@ -156,6 +156,22 @@ const FEATURED_COLLECTION_QUERY = `#graphql
       width
       height
     }
+    options{
+      name
+      optionValues{
+        
+        id
+        swatch{
+
+          color
+          image{
+            previewImage{
+              url
+            }
+          }
+        }
+      }
+    }
     priceRange {
       minVariantPrice {
         ...MoneyProductItem
