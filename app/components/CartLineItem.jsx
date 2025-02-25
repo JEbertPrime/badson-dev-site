@@ -13,6 +13,7 @@ import {useAside} from './Aside';
  * }}
  */
 export function CartLineItem({layout, line}) {
+  console.log(line);
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
@@ -57,7 +58,7 @@ export function CartLineItem({layout, line}) {
         <CartLineQuantity line={line} />
         <ul>{line.properties}</ul>
         <CartLineRemoveButton
-          lineIds={[line.lineId]}
+          lineIds={[line.id]}
           disabled={!!line.isOptimistic}
         />
       </div>

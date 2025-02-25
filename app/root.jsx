@@ -145,7 +145,7 @@ export function Layout({children}) {
   const nonce = useNonce();
   /** @type {RootLoader} */
   const data = useRouteLoaderData('root');
-  const [colorScheme, setColorScheme] = useState('dark');
+  const [colorScheme, setColorScheme] = useState('light');
   data.setColorScheme = setColorScheme;
   return (
     <html lang="en">

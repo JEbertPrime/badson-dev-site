@@ -28,27 +28,34 @@ export function CartMain({layout, cart: originalCart}) {
         'w-full px-8 mt-10  max-w-screen-xl m-auto flex md:flex-row flex-col gap-4 justify-center'
       }
     >
-      <div className="md:w-2/3  md:order-1 order-2">
-        <div className="w-full flex justify-between">
-          <p className="text-sm">Shopping Bag</p>
-          <p className="text-sm">Total</p>
-        </div>
-        <hr className=" border-b-2 border-foreground w-full mt-4 mb-2" />
-        <ul>
-          {(cart?.lines?.nodes ?? []).map((line) => (
-            <CartLineItem key={line.id} line={line} layout={layout} />
-          ))}
-        </ul>
-        <hr className=" border-b-2 border-foreground w-full mt-4 mb-4" />
+      {linesCount && (
+        <div className="md:w-2/3  md:order-1 order-2">
+          <div className="w-full flex justify-between">
+            <p className="text-sm">Shopping Bag</p>
+            <p className="text-sm">Total</p>
+          </div>
+          <hr className=" border-b-2 border-foreground w-full mt-4 mb-2" />
+          <ul>
+            {(cart?.lines?.nodes ?? []).map((line) => (
+              <CartLineItem key={line.id} line={line} layout={layout} />
+            ))}
+          </ul>
+          <hr className=" border-b-2 border-foreground w-full mt-4 mb-4" />
 
-        <CartSummary cart={cart} layout={layout} />
-        <hr className=" border-b-2 border-foreground w-full mt-4 mb-4" />
-      </div>
+          <CartSummary cart={cart} layout={layout} />
+          <hr className=" border-b-2 border-foreground w-full mt-4 mb-4" />
+        </div>
+      )}
+
       <CartEmpty hidden={linesCount} layout={layout} />
-      <div className="cart-details md:order-2 order-1 flex flex-col justify-start md:w-1/3 md:p-3">
-        <div aria-labelledby="cart-lines"></div>
-        {cartHasItems && <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />}
-      </div>
+      {linesCount && (
+        <div className="cart-details md:order-2 order-1 flex flex-col justify-start md:w-1/3 md:p-3">
+          <div aria-labelledby="cart-lines"></div>
+          {cartHasItems && (
+            <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
+          )}
+        </div>
+      )}
     </div>
   );
 }

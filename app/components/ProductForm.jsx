@@ -19,7 +19,16 @@ export function ProductForm({
   const {open} = useAside();
   const addFetcher = useFetcher({key: 'add-fetcher'});
   const [addToCartText, setAddToCartText] = useState('Add');
-
+  const attributes =
+    selectedVariant.currentlyNotInStock && selectedVariant.availableForSale
+      ? [
+          {
+            key: 'Pre-order',
+            value:
+              'This item is a pre-order, and will be shipped in 6-8 weeks.',
+          },
+        ]
+      : null;
   useEffect(() => {
     if (addFetcher.state == 'loading') {
       setAddToCartText('Added');
@@ -141,12 +150,7 @@ export function ProductForm({
                   merchandiseId: selectedVariant.id,
                   quantity: 1,
                   selectedVariant,
-                  attributes: [
-                    {
-                      key: 'Pre-order',
-                      value: 'true',
-                    },
-                  ],
+                  attributes,
                 },
               ]
             : []
