@@ -54,7 +54,7 @@ export function CartLineItem({layout, line}) {
               <small>{option.value}</small>
             </li>
           ))}
-          {line.attributes.map((attribute) => (
+          {line?.attributes?.map((attribute) => (
             <li key={attribute.key}>
               <small>
                 {attribute.key}: {attribute.value}
