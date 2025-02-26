@@ -14,7 +14,7 @@ export const ProductItem = ({product, loading}) => {
   );
   return (
     <Link
-      className="product-item hover:no-underline  group"
+      className="product-item hover:no-underline flex flex-col h-full group"
       key={product.id}
       prefetch="intent"
       to={variantUrl}
@@ -32,7 +32,7 @@ export const ProductItem = ({product, loading}) => {
         <small className="text-xs ">
           <Money data={product.priceRange.minVariantPrice} />
         </small>
-        <div className="flex mt-2 w-full gap-2 justify-center">
+        <div className="flex mt-2 mb-2 w-full gap-2 justify-center">
           {colorOption?.optionValues.map((value) => (
             <span
               key={value.id}
@@ -42,7 +42,7 @@ export const ProductItem = ({product, loading}) => {
           ))}
         </div>
       </div>
-      <hr className="w-0 group-hover:w-full transition-all m-auto" />
+      <hr className="w-0 group-hover:w-full transition-all m-auto mb-0" />
     </Link>
   );
 };
