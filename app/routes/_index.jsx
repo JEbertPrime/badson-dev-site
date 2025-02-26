@@ -88,7 +88,7 @@ function FeaturedCollection({collection}) {
     }
   });
   return (
-    <div className="collection grid grid-cols-2 flex-wrap p-6 gap-6 max-w-4xl m-auto opacity-0 animate-fadein animate-forwards animation-delay-[333ms]">
+    <div className="collection grid grid-cols-2 flex-wrap p-6 gap-6 max-w-4xl m-auto  animate-forwards animation-delay-[333ms]">
       {collection.products.nodes.map((product, index) => (
         <ProductItem
           key={product.id}
