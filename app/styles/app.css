@@ -458,7 +458,7 @@ button.reset:hover:not(:has(> *)) {
 .product h1 {
   margin-top: 0;
 }
-.product-description ul{
+.product-description ul, .page ul{
   list-style-type: disc;
   list-style: disc;
   padding-inline-start: 20px;

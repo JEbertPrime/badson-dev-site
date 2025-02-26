@@ -62,13 +62,38 @@ function loadDeferredData({context}) {
 export default function Page() {
   /** @type {LoaderReturnData} */
   const {page} = useLoaderData();
-
+  let pageContent;
+  console.log(page);
+  if (page.title.toLowerCase() == 'info') {
+    pageContent = <InfoPage {...{page}} />;
+  } else {
+    pageContent = <main dangerouslySetInnerHTML={{__html: page.body}} />;
+  }
   return (
-    <div className="page">
-      <header>
-        <h1>{page.title}</h1>
-      </header>
-      <main dangerouslySetInnerHTML={{__html: page.body}} />
+    <div className="page p-4 *:list-disc">
+      <header></header>
+      {pageContent}
+    </div>
+  );
+}
+function InfoPage({page}) {
+  const [first, ...panels] = page.body.split(/<h1>.*<\/h1>/);
+  const panelTitles = [...page.body.matchAll(/<h1>(.*)<\/h1>/g)];
+  return (
+    <div>
+      {panels.map((panel, i) => {
+        return (
+          <details
+            className="transition-all group mb-8"
+            key={'info-panel-' + i}
+          >
+            <summary className="text-2xl list-none hover:cursor-pointer group-open:after:rotate-45 group-open:after:scale-125 after:transition-transform  after:inline-block after:ml-2  after:content-[_'+']   marker:hidden [&::-webkit-details-marker]:hidden">
+              {panelTitles[i][1]}
+            </summary>
+            <div dangerouslySetInnerHTML={{__html: panel}} />
+          </details>
+        );
+      })}
     </div>
   );
 }
