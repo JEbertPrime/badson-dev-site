@@ -463,10 +463,6 @@ button.reset:hover:not(:has(> *)) {
   list-style: disc;
   padding-inline-start: 20px;
 }
-.product-image img {
-  height: auto;
-  width: 100%;
-}
 
 .product-main {
   align-self: start;
@@ -504,8 +500,8 @@ button.reset:hover:not(:has(> *)) {
 }
 .product-image-gallery img{
   position: absolute;
-  width: auto;
-  height: 100%;
+  max-width: 640px;
+  width: 80%;
 }
 /*
 * --------------------------------------------------

@@ -13,7 +13,6 @@ import {useAside} from './Aside';
  * }}
  */
 export function CartLineItem({layout, line}) {
-  console.log(line);
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
@@ -22,7 +21,7 @@ export function CartLineItem({layout, line}) {
     <li
       key={id}
       style={{gridTemplateColumns: '1fr 2fr 1fr'}}
-      className="cart-line w-full grid gap-2 items-center"
+      className="cart-line w-full grid gap-2 items-start"
     >
       {image && (
         <Image

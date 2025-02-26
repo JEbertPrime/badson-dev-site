@@ -1,5 +1,5 @@
 import {Image} from '@shopify/hydrogen';
-import {useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import {useSwipeable} from 'react-swipeable';
 /**
  * @param {{
@@ -8,11 +8,19 @@ import {useSwipeable} from 'react-swipeable';
  */
 export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [galleryHeight, setGalleryHeight] = useState(0);
+  const imageRef = useRef(null);
   const handlers = useSwipeable({
     onSwipedRight: () =>
       setActiveSlide(activeSlide - 1 < 0 ? images.length - 1 : activeSlide - 1),
     onSwipedLeft: () => setActiveSlide((activeSlide + 1) % images.length),
   });
+  useEffect(() => {
+    setGalleryHeight(imageRef.current.clientHeight);
+    const handleResize = () => setGalleryHeight(imageRef.current.clientHeight);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const gridClasses = {
     0: 'grid-cols-0',
     1: 'grid-cols-1',
@@ -27,10 +35,15 @@ export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
   }
   return (
     <div className="flex flex-col mb-4 w-full">
-      <div className="product-image-gallery touch-pan-y mb-2" {...handlers}>
+      <div
+        className="product-image-gallery touch-pan-y mb-2 "
+        style={{height: galleryHeight}}
+        {...handlers}
+      >
         {images.map((image, index) => {
           return (
             <Image
+              ref={imageRef}
               loading="eager"
               className={`absolute m-auto w-full h-auto left-0 right-0 transition-opacity ${
                 activeSlide == index ? 'opacity-100' : 'opacity-0'

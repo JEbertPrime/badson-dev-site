@@ -10,7 +10,7 @@ import {useContext} from 'react';
 import {useVariantUrl} from '~/lib/variants';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {ColorSetterContext} from '~/lib/colorContext';
-
+import {ProductItem} from '~/components/ProductItem.jsx';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -110,51 +110,6 @@ export default function Collection() {
         }}
       />
     </div>
-  );
-}
-
-/**
- * @param {{
- *   product: ProductItemFragment;
- *   loading?: 'eager' | 'lazy';
- * }}
- */
-export function ProductItem({product, loading}) {
-  const variantUrl = useVariantUrl(product.handle);
-  const colorOption = product?.options?.find(
-    (option) => option.name == 'Color',
-  );
-  return (
-    <Link
-      className="product-item"
-      key={product.id}
-      prefetch="intent"
-      to={variantUrl}
-    >
-      {product.featuredImage && (
-        <Image
-          alt={product.featuredImage.altText || product.title}
-          data={product.featuredImage}
-          loading={loading}
-          sizes="(min-width: 45em) 400px, 100vw"
-        />
-      )}
-      <div className=" text-center mt-2 text-sm">
-        <h4 className="text-xs ">{product.title}</h4>
-        <small className="text-xs ">
-          <Money data={product.priceRange.minVariantPrice} />
-        </small>
-        <div className="flex mt-2 w-full gap-2 justify-center">
-          {colorOption?.optionValues.map((value) => (
-            <span
-              key={value.id}
-              className="w-4 h-4 rounded-full border border-foreground block"
-              style={{backgroundColor: value.swatch.color}}
-            ></span>
-          ))}
-        </div>
-      </div>
-    </Link>
   );
 }
 

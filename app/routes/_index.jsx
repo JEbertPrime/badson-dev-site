@@ -2,8 +2,7 @@ import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense, useContext, useEffect} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
-import {ProductItem} from './collections.$handle';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {ProductItem} from '~/components/ProductItem';
 import {ColorSetterContext} from '~/lib/colorContext';
 /**
  * @type {MetaFunction}
