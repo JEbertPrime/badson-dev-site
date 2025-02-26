@@ -16,7 +16,6 @@ export function AddToCartButton({
   lines,
   onClick,
 }) {
-  console.log(disabled);
   return (
     <CartForm
       route="/cart"

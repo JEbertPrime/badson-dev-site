@@ -54,6 +54,13 @@ export function CartLineItem({layout, line}) {
               <small>{option.value}</small>
             </li>
           ))}
+          {line.attributes.map((attribute) => (
+            <li key={attribute.key}>
+              <small>
+                {attribute.key}: {attribute.value}
+              </small>
+            </li>
+          ))}
         </ul>
         <CartLineQuantity line={line} />
         <ul>{line.properties}</ul>
