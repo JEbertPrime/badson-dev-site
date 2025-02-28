@@ -17,6 +17,8 @@ export const ProductDescription = ({description}) => {
   useEffect(() => {
     if (activeTab == 1) {
       let unit = document.querySelector('table tr:first-child td:first-child');
+      if (!unit) return;
+
       unit.style.cursor = 'pointer';
       unit.innerHTML = isInches
         ? "<span class='underline font-bold'><span class='text-green-600'>IN</span> / CM</span>"
@@ -29,6 +31,7 @@ export const ProductDescription = ({description}) => {
     }
     if (activeTab == 1) {
       let unit = document.querySelector('table tr:first-child td:first-child');
+      if (!unit) return;
       unit.style.cursor = 'pointer';
       let measurements = Array.from(
         document.querySelectorAll('table td'),
