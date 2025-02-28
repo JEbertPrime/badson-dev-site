@@ -9,7 +9,7 @@ import {useSwipeable} from 'react-swipeable';
 export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [galleryHeight, setGalleryHeight] = useState(400);
-  const imageRef = useRef(null);
+  const imageRefs = useRef([]);
   const aspectRatio = `${images[0].width}/${images[0].height}`;
   const handlers = useSwipeable({
     onSwipedRight: () =>
@@ -17,11 +17,13 @@ export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
     onSwipedLeft: () => setActiveSlide((activeSlide + 1) % images.length),
   });
   useEffect(() => {
-    setGalleryHeight(imageRef.current.clientHeight);
-    const handleResize = () => setGalleryHeight(imageRef.current.clientHeight);
+    setGalleryHeight(imageRefs.current[activeSlide]?.clientHeight);
+    console.log(imageRefs.current[activeSlide]);
+    const handleResize = () =>
+      setGalleryHeight(imageRefs.current[activeSlide]?.clientHeight);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [activeSlide, images]);
   const gridClasses = {
     0: 'grid-cols-0',
     1: 'grid-cols-1',
@@ -44,7 +46,7 @@ export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
         {images.map((image, index) => {
           return (
             <Image
-              ref={imageRef}
+              ref={(el) => (imageRefs.current[index] = el)}
               loading="eager"
               className={`absolute object-contain m-auto w-full h-auto left-0 right-0 transition-opacity ${
                 activeSlide == index ? 'opacity-100' : 'opacity-0'
