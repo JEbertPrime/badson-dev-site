@@ -191,7 +191,7 @@ function ProductOptionSwatch({swatch, name}) {
   return (
     <div
       aria-label={name}
-      className="product-option-label-swatch aspect-square w-12 rounded-full"
+      className="product-option-label-swatch aspect-square w-12 rounded-full ml-[-1px] mt-[-1px]"
       style={{
         backgroundColor: color || 'transparent',
       }}
