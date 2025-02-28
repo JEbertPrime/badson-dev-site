@@ -20,6 +20,7 @@ export const ProductDescription = ({description}) => {
       if (!unit) return;
 
       unit.style.cursor = 'pointer';
+      unit.style.textAlign = 'center';
       unit.innerHTML = isInches
         ? "<span class='underline font-bold'><span class='text-green-600'>IN</span> / CM</span>"
         : "<span class='underline font-bold'>IN / <span class='text-green-600'>CM</span></span>";
@@ -33,6 +34,8 @@ export const ProductDescription = ({description}) => {
       let unit = document.querySelector('table tr:first-child td:first-child');
       if (!unit) return;
       unit.style.cursor = 'pointer';
+      unit.style.textAlign = 'center';
+
       let measurements = Array.from(
         document.querySelectorAll('table td'),
       ).filter((td) => isNumeric(td.innerText));
