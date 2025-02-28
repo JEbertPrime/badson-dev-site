@@ -42,7 +42,7 @@ export const ProductItem = ({product, loading}) => {
           ))}
         </div>
       </div>
-      <hr className="w-0 group-hover:w-80 border-gray-400 transition-all m-auto mb-0" />
+      <hr className="w-0 group-hover:w-8/12 border-gray-400 transition-all m-auto mb-0" />
     </Link>
   );
 };

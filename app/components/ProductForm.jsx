@@ -157,7 +157,7 @@ export function ProductForm({
       >
         {selectedVariant?.availableForSale ? (
           selectedVariant.currentlyNotInStock ? (
-            <span>
+            <span className={`${addedToCart ? 'text-xs' : ''}`}>
               Pre
               <br />
               Order{addedToCart ? 'ED' : ''}
