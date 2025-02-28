@@ -10,6 +10,7 @@ export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [galleryHeight, setGalleryHeight] = useState(400);
   const imageRef = useRef(null);
+  const aspectRatio = `${images[0].width}/${images[0].height}`;
   const handlers = useSwipeable({
     onSwipedRight: () =>
       setActiveSlide(activeSlide - 1 < 0 ? images.length - 1 : activeSlide - 1),
@@ -45,11 +46,11 @@ export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
             <Image
               ref={imageRef}
               loading="eager"
-              className={`absolute m-auto w-full h-auto left-0 right-0 transition-opacity ${
+              className={`absolute object-contain m-auto w-full h-auto left-0 right-0 transition-opacity ${
                 activeSlide == index ? 'opacity-100' : 'opacity-0'
               }`}
               src={image.url}
-              aspectRatio={`${image.width}/${image.height}`}
+              aspectRatio={aspectRatio}
               key={image.id}
               width={image.width}
               height={image.height}
