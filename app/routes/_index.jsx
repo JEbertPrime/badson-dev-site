@@ -8,7 +8,7 @@ import {ColorSetterContext} from '~/lib/colorContext';
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [{title: 'BADSON.US'}];
 };
 
 /**
