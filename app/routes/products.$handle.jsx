@@ -103,7 +103,9 @@ export default function Product() {
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
-
+  const variantColor = selectedVariant.selectedOptions.find(
+    (element) => element.name == 'Color',
+  );
   // Sets the search param to the selected variant without navigation
   // only when no search params are set in the url
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
@@ -139,6 +141,7 @@ export default function Product() {
           {title.substring(0, titleBreakIndex)}
           <br />
           {title.substring(titleBreakIndex)}
+          {variantColor ? ` IN ${variantColor.value}` : ''}
         </h1>
         <ProductPrice
           price={selectedVariant?.price}

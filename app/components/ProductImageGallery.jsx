@@ -8,7 +8,7 @@ import {useSwipeable} from 'react-swipeable';
  */
 export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [galleryHeight, setGalleryHeight] = useState(0);
+  const [galleryHeight, setGalleryHeight] = useState(400);
   const imageRef = useRef(null);
   const handlers = useSwipeable({
     onSwipedRight: () =>

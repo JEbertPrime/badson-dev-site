@@ -16,7 +16,6 @@ export function ProductForm({
   setVariantImages,
 }) {
   const navigate = useNavigate();
-  const {open} = useAside();
   const addFetcher = useFetcher({key: 'add-fetcher'});
   const [addToCartText, setAddToCartText] = useState('Add');
   const attributes =
