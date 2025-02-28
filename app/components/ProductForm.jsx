@@ -17,7 +17,7 @@ export function ProductForm({
 }) {
   const navigate = useNavigate();
   const addFetcher = useFetcher({key: 'add-fetcher'});
-  const [addToCartText, setAddToCartText] = useState('Add');
+  const [addedToCart, setAddState] = useState(false);
   const attributes =
     selectedVariant.currentlyNotInStock && selectedVariant.availableForSale
       ? [
@@ -30,8 +30,8 @@ export function ProductForm({
       : null;
   useEffect(() => {
     if (addFetcher.state == 'loading') {
-      setAddToCartText('Added');
-      setTimeout(() => setAddToCartText('Add'), 1500);
+      setAddState(true);
+      setTimeout(() => setAddState(false), 1500);
     }
   }, [addFetcher.state]);
   return (
@@ -160,10 +160,10 @@ export function ProductForm({
             <span>
               Pre
               <br />
-              Order
+              Order{addedToCart ? 'ED' : ''}
             </span>
           ) : (
-            addToCartText
+            'ADD' + (addedToCart ? 'ED' : '')
           )
         ) : (
           <>
