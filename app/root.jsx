@@ -11,7 +11,7 @@ import {
   isRouteErrorResponse,
 } from '@remix-run/react';
 import {useState} from 'react';
-import favicon from '~/assets/favicon.svg';
+import favicon from '~/assets/circle_xxx.png';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 
