@@ -1,7 +1,6 @@
-import {Link, useNavigate} from '@remix-run/react';
+import {Link, useNavigate, useFetcher} from '@remix-run/react';
 import {AddToCartButton} from './AddToCartButton';
 import {useAside} from './Aside';
-import {useFetcher} from '@remix-run/react';
 import {useEffect, useState} from 'react';
 
 /**

@@ -80,14 +80,15 @@ export default function Homepage() {
 function FeaturedCollection({collection}) {
   const setColorScheme = useContext(ColorSetterContext);
 
-  if (!collection) return null;
   useEffect(() => {
-    if (collection.metafield?.value) {
+    if (collection?.metafield?.value) {
       setColorScheme(collection.metafield.value.toLowerCase());
     } else {
       setColorScheme('dark');
     }
   });
+  if (!collection) return null;
+
   return (
     <div className="collection grid grid-cols-2 flex-wrap p-6 gap-6 max-w-4xl m-auto opacity-0 animate-fadein animate-forwards animation-delay-[333ms]">
       {collection.products.nodes.map((product, index) => (
