@@ -146,7 +146,9 @@ export function Layout({children}) {
   /** @type {RootLoader} */
   const data = useRouteLoaderData('root');
   const [colorScheme, setColorScheme] = useState('light');
-  data.setColorScheme = setColorScheme;
+  if (data) {
+    data.setColorScheme = setColorScheme;
+  }
   return (
     <html lang="en">
       <head>
