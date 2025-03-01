@@ -28,10 +28,10 @@ export async function createAppLoadContext(request, env, executionContext) {
   try {
     const locales = parseAcceptLanguage(request.headers.get('Accept-Language'));
 
-    if (locales[0].indexOf('-')) {
+    if (locales.length && locales[0].indexOf('-')) {
       locale.language = locales[0].split('-')[0].toUpperCase();
       locale.country = locales[0].split('-')[1];
-    } else {
+    } else if (locales.length) {
       locale.language = locales[0].toUpperCase();
     }
   } catch (error) {
