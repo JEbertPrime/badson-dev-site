@@ -11,8 +11,8 @@ export function Footer({
   paymentSettings,
 }) {
   if (
-    paymentSettings.acceptedCardBrands.length == 0 &&
-    paymentSettings.supportedDigitalWallets.length == 0
+    paymentSettings?.acceptedCardBrands?.length == 0 &&
+    paymentSettings?.supportedDigitalWallets?.length == 0
   ) {
     paymentSettings = {
       acceptedCardBrands: [

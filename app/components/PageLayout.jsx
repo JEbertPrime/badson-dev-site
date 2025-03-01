@@ -23,7 +23,7 @@ export function PageLayout({
   publicStoreDomain,
   shop,
 }) {
-  const paymentSettings = header?.shop.paymentSettings;
+  const paymentSettings = header?.shop?.paymentSettings;
   return (
     <Aside.Provider>
       <CartAside cart={cart} />
