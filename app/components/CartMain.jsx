@@ -25,11 +25,11 @@ export function CartMain({layout, cart: originalCart}) {
     <div
       className={
         className +
-        'w-full px-8 mt-10  max-w-screen-xl m-auto flex md:flex-row flex-col gap-4 justify-center'
+        'w-full px-8 mt-2  max-w-screen-xl m-auto flex md:flex-row flex-col gap-4 justify-center'
       }
     >
       {linesCount && (
-        <div className="md:w-2/3  md:order-1 order-2">
+        <div className="md:w-2/3  md:order-1 order-2 mt-10">
           <div className="w-full flex justify-between">
             <p className="text-sm">Shopping Bag</p>
             <p className="text-sm">Total</p>

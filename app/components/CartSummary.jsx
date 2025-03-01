@@ -45,7 +45,7 @@ export function CartCheckoutActions({checkoutUrl}) {
   return (
     <>
       <a
-        className=" hover:no-underline w-full text-center text-sm align-bottom p-2 mx-auto block border-foreground border-2 bg-foreground text-background "
+        className=" hover:no-underline w-full md:relative fixed w-[calc(100%_-_4rem)] left-0 mx-8 text-center text-sm align-bottom p-2 mx-auto block border-foreground border-2 bg-foreground text-background "
         href={checkoutUrl}
         target="_self"
       >
