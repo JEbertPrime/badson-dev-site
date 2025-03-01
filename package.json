@@ -19,6 +19,7 @@
     "@shopify/remix-oxygen": "^2.0.9",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
+    "intl-parse-accept-language": "^1.0.0",
     "isbot": "^3.8.0",
     "motion": "^11.18.0",
     "react": "^18.2.0",

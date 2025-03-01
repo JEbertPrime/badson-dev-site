@@ -1,6 +1,7 @@
 import {createHydrogenContext} from '@shopify/hydrogen';
 import {AppSession} from '~/lib/session';
 import {CART_QUERY_FRAGMENT} from '~/lib/fragments';
+import {parseAcceptLanguage} from 'intl-parse-accept-language';
 
 /**
  * The context implementation is separate from server.ts
@@ -22,14 +23,28 @@ export async function createAppLoadContext(request, env, executionContext) {
     caches.open('hydrogen'),
     AppSession.init(request, [env.SESSION_SECRET]),
   ]);
+  let locale = {};
+  const defaultLocale = {language: 'EN', country: 'US'};
+  try {
+    const locales = parseAcceptLanguage(request.headers.get('Accept-Language'));
 
+    if (locales[0].indexOf('-')) {
+      locale.language = locales[0].split('-')[0].toUpperCase();
+      locale.country = locales[0].split('-')[1];
+    } else {
+      locale.language = locales[0].toUpperCase();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  locale = {...defaultLocale, ...locale};
   const hydrogenContext = createHydrogenContext({
     env,
     request,
     cache,
     waitUntil,
     session,
-    i18n: {language: 'EN', country: 'US'},
+    i18n: locale,
     cart: {
       queryFragment: CART_QUERY_FRAGMENT,
     },
