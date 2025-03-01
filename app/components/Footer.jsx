@@ -34,13 +34,13 @@ export function Footer({
               © 2025, <a href={publicStoreDomain}>BAD SON</a>
             </span>
             <div className="flex gap-4 justify-center w-full md:w-1/3 self-center min-w-fit">
-              {paymentSettings.acceptedCardBrands.map((brand) => (
+              {paymentSettings?.acceptedCardBrands.map((brand) => (
                 <i
                   key={brand + '-icon'}
                   className={'icon icon-' + brand.toLowerCase()}
                 />
               ))}
-              {paymentSettings.supportedDigitalWallets.map((brand) => (
+              {paymentSettings?.supportedDigitalWallets.map((brand) => (
                 <i
                   key={brand + '-icon'}
                   className={'icon icon-' + brand.toLowerCase()}
