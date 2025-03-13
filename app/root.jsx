@@ -154,6 +154,10 @@ export function Layout({children}) {
       <head>
         <meta charSet="utf-8" />
         <meta
+          name="google-site-verification"
+          content="4rgvOSPkG4mVTXL6hswqJvA-w6WA0Y7yzJfUEeM3Fic"
+        />
+        <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
         />
