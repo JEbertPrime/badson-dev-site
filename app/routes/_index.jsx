@@ -96,7 +96,7 @@ function FeaturedCollection({collection}) {
           key={product.id}
           className="flex-grow"
           product={product}
-          loading={index < 8 ? 'eager' : undefined}
+          loading={index < 8 ? 'eager' : 'lazy'}
         />
       ))}
     </div>
@@ -108,6 +108,7 @@ function FeaturedCollection({collection}) {
  *   products: Promise<RecommendedProductsQuery | null>;
  * }}
  */
+// eslint-disable-next-line no-unused-vars
 function RecommendedProducts({products}) {
   return (
     <div className="recommended-products">
