@@ -134,6 +134,7 @@ function CartBadge({count}) {
     >
       <Image
         className={`cart-icon `}
+        aspectRatio="1/1"
         width={24}
         src={cartBag}
         loading="eager"
