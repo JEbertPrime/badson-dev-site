@@ -86,6 +86,7 @@ function HeaderMenuMobileToggle() {
   };
   return (
     <button
+      aria-label="Menu Toggle"
       className={
         'header-menu-mobile-toggle   reset grid grid-cols-3 transition-transform duration-200 gap-1 grid-rows-3 w-6 h-6' +
         (type == 'mobile' ? ' z-50 rotate-90 delay-200 ' : ' rotate-0')
@@ -123,6 +124,7 @@ function CartBadge({count}) {
   return (
     <Link
       to="/cart"
+      aria-label="Cart"
       className={
         'relative' +
         (cart?.totalQuantity > 0
