@@ -41,7 +41,6 @@ export const shouldRevalidate = ({
 
 export function links() {
   return [
-    {rel: 'stylesheet', href: resetStyles},
     {rel: 'stylesheet', href: appStyles},
     {rel: 'stylesheet', href: tailwindStyles},
 
