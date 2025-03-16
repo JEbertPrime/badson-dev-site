@@ -132,7 +132,12 @@ function CartBadge({count}) {
           : '')
       }
     >
-      <Image className={`cart-icon `} width={24} src={cartBag} />
+      <Image
+        className={`cart-icon `}
+        width={24}
+        src={cartBag}
+        loading="eager"
+      />
     </Link>
   );
 }

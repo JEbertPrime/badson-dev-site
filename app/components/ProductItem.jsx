@@ -24,7 +24,6 @@ export const ProductItem = ({product, loading}) => {
           alt={product.featuredImage.altText || product.title}
           data={product.featuredImage}
           loading={loading}
-          sizes="(min-width: 45em) 400px, 100vw"
         />
       )}
       <div className=" text-center mt-2 text-sm">
