@@ -24,6 +24,7 @@ export const ProductItem = ({product, loading}) => {
           alt={product.featuredImage.altText || product.title}
           data={product.featuredImage}
           loading={loading}
+          width={300}
         />
       )}
       <div className=" text-center mt-2 text-sm">
