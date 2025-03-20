@@ -11,7 +11,7 @@ import {
   isRouteErrorResponse,
 } from '@remix-run/react';
 import {useState} from 'react';
-import favicon from '~/assets/circle_xxx.png';
+import favicon from '~/assets/favicon.png';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 
@@ -52,7 +52,7 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: favicon},
+    {rel: 'icon', type: 'image/png', href: favicon},
   ];
 }
 
