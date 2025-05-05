@@ -32,7 +32,7 @@ export async function loader(args) {
 async function loadCriticalData({context}) {
   const [{collection}] = await Promise.all([
     context.storefront.query(FEATURED_COLLECTION_QUERY, {
-      variables: {handle: 'vessel-delivery-one'},
+      variables: {handle: 'light-1'},
     }),
     // Add other queries here, so that they are loaded in parallel
   ]);
