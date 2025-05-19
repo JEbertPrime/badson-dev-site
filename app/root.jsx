@@ -169,6 +169,7 @@ export function Layout({children}) {
             cart={data.cart}
             shop={data.shop}
             consent={data.consent}
+            withPrivacyBanner={true}
           >
             <ColorSetterContext.Provider value={setColorScheme}>
               <ColorContext.Provider value={colorScheme}>

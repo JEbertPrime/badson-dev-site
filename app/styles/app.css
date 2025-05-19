@@ -33,7 +33,9 @@ body.dark{
   --background-color: #000;
   --foreground-color: #fff;
 }
-
+body.dark .product-item .text-center{
+  display: none;
+}
 h1,
 h2,
 p {
