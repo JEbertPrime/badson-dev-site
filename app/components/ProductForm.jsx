@@ -27,8 +27,8 @@ export function ProductForm({
             value:
               selectedVariant.quantityAvailable <
               parseInt(selectedVariant.preorderCutoff.value)
-                ? JSON.parse(product.preorderMessages.value)[0]
-                : JSON.parse(product.preorderMessages.value)[1],
+                ? JSON.parse(product.preorderMessages.value)[1]
+                : JSON.parse(product.preorderMessages.value)[0],
           },
         ]
       : null;
