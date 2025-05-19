@@ -13,7 +13,9 @@ export function ProductForm({
   productOptions,
   selectedVariant,
   setVariantImages,
+  product,
 }) {
+  console.log(product, selectedVariant);
   const navigate = useNavigate();
   const addFetcher = useFetcher({key: 'add-fetcher'});
   const [addedToCart, setAddState] = useState(false);
@@ -23,7 +25,10 @@ export function ProductForm({
           {
             key: 'Pre-order',
             value:
-              'This item is a pre-order, and will be shipped in 6-8 weeks.',
+              selectedVariant.quantityAvailable <
+              parseInt(selectedVariant.preorderCutoff.value)
+                ? JSON.parse(product.preorderMessages.value)[0]
+                : JSON.parse(product.preorderMessages.value)[1],
           },
         ]
       : null;

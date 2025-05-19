@@ -149,6 +149,7 @@ export default function Product() {
         />
         <br />
         <ProductForm
+          product={product}
           productOptions={productOptions}
           selectedVariant={selectedVariant}
           setVariantImages={setVariantImages}
@@ -208,9 +209,13 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
     }
     sku
     title
+    quantityAvailable
     unitPrice {
       amount
       currencyCode
+    }
+    preorderCutoff:metafield(namespace: "custom", key: "preorder_message_cutoff"){
+      value
     }
     metafield(namespace: "custom", key: "variant_images"){
       references(first:10){
@@ -290,6 +295,9 @@ const PRODUCT_FRAGMENT = `#graphql
     }
     adjacentVariants (selectedOptions: $selectedOptions) {
       ...ProductVariant
+    }
+    preorderMessages:metafield(key: "preorder_timelines", namespace: "custom"){
+      value
     }
     seo {
       description
