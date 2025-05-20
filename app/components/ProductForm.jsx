@@ -26,7 +26,7 @@ export function ProductForm({
             key: 'Pre-order',
             value:
               selectedVariant.quantityAvailable <
-              parseInt(selectedVariant.preorderCutoff.value)
+              parseInt(selectedVariant.preorderCutoff?.value)
                 ? JSON.parse(product.preorderMessages.value)[1]
                 : JSON.parse(product.preorderMessages.value)[0],
           },
