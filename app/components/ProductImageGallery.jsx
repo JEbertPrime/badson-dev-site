@@ -11,6 +11,10 @@ export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
   const [galleryHeight, setGalleryHeight] = useState(400);
   const imageRefs = useRef([]);
   const aspectRatio = `${images[0].width}/${images[0].height}`;
+  let secondRowThumbs = [];
+  if (true) {
+    secondRowThumbs = images.filter((image) => image.altText == 'model');
+  }
   const handlers = useSwipeable({
     onSwipedRight: () =>
       setActiveSlide(activeSlide - 1 < 0 ? images.length - 1 : activeSlide - 1),
@@ -36,6 +40,7 @@ export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
   if (!images) {
     return <div className="product-image-gallery" />;
   }
+
   return (
     <div className="flex flex-col mb-4 w-full">
       <div
@@ -61,19 +66,38 @@ export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
         })}
       </div>
       {navigationType == 'thumbnails' ? (
-        <div className="h-24 flex justify-between w-fit gap-2 m-auto">
-          {images.map((image, index) => {
-            return (
-              <Image
-                key={image.id + '-thumb'}
-                width={400}
-                src={image.thumbnailUrl}
-                className="h-full w-auto"
-                onClick={() => setActiveSlide(index)}
-              />
-            );
-          })}
-        </div>
+        <>
+          <div className="h-24 flex justify-between w-fit gap-2 m-auto">
+            {images.map((image, index) => {
+              if (image.altText != 'model')
+                return (
+                  <Image
+                    key={image.id + '-thumb'}
+                    width={400}
+                    src={image.thumbnailUrl}
+                    className="h-full w-auto"
+                    onClick={() => setActiveSlide(index)}
+                  />
+                );
+            })}
+          </div>
+          {secondRowThumbs.length && (
+            <div className="h-24 mt-4 flex justify-between w-fit gap-2 m-auto">
+              {images.map((image, index) => {
+                if (image.altText == 'model')
+                  return (
+                    <Image
+                      key={image.id + '-thumb'}
+                      width={400}
+                      src={image.thumbnailUrl}
+                      className="h-full w-auto"
+                      onClick={() => setActiveSlide(index)}
+                    />
+                  );
+              })}
+            </div>
+          )}
+        </>
       ) : (
         <div className="relative w-fit m-auto">
           <div
