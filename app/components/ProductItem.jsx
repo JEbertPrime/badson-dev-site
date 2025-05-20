@@ -15,9 +15,10 @@ export const ProductItem = ({product, loading, className}) => {
   return (
     <Link
       className={
-        'product-item hover:no-underline flex flex-col last-of-type:w-3/4 last-of-type:m-auto h-full group  ' +
+        'product-item hover:no-underline [#healer-tee&]:scale-110 flex flex-col last-of-type:w-3/5 last-of-type:m-auto h-full group  ' +
         className
       }
+      id={product.handle}
       key={product.id}
       prefetch="intent"
       to={variantUrl}
