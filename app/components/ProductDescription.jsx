@@ -38,7 +38,13 @@ export const ProductDescription = ({description}) => {
 
       let measurements = Array.from(
         document.querySelectorAll('table td'),
-      ).filter((td) => isNumeric(td.innerText));
+      ).filter((td) => {
+        if (td.innerText.indexOf('-') > 0) {
+          return true;
+        } else {
+          return isNumeric(td.innerText);
+        }
+      });
       const toggleUnit = () => {
         setUnit((i) => !i);
       };
@@ -46,9 +52,16 @@ export const ProductDescription = ({description}) => {
       if (!inchesValues.length) {
         inValues = measurements.map((td) => td.innerText);
         setInchesValues(inValues);
-        cmVals = measurements.map((td) =>
-          Math.trunc(Number(td.innerText) * 2.54),
-        );
+        cmVals = measurements.map((td) => {
+          if (td.innerText.indexOf('-')) {
+            return td.innerText
+              .split('-')
+              .map((num) => Math.trunc(Number(num) * 2.54))
+              .join('-');
+          } else {
+            return Math.trunc(Number(td.innerText) * 2.54);
+          }
+        });
         setCmValues(cmVals);
       } else {
         inValues = inchesValues;
