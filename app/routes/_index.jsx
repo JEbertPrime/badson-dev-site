@@ -94,7 +94,7 @@ function FeaturedCollection({collection}) {
       {collection.products.nodes.map((product, index) => (
         <ProductItem
           key={product.id}
-          className=" last-of-type:col-span-2"
+          className=" "
           product={product}
           loading={index < 8 ? 'eager' : 'lazy'}
         />

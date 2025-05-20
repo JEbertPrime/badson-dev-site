@@ -15,7 +15,7 @@ export const ProductItem = ({product, loading, className}) => {
   return (
     <Link
       className={
-        'product-item hover:no-underline flex flex-col last-of-type:w-1/2 last-of-type:m-auto h-full group  ' +
+        'product-item hover:no-underline flex flex-col [&:nth-of-type(3)]:col-span-2 [&:nth-of-type(3)]:w-3/4 [&:nth-of-type(3)]:m-auto h-full group  ' +
         className
       }
       key={product.id}
