@@ -557,7 +557,9 @@ button.reset:hover:not(:has(> *)) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
+.recommended-products-grid :last-child{
+  grid-column: span 2;
+}
 .recommended-product img {
   height: auto;
 }

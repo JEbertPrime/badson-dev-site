@@ -7,14 +7,17 @@ import {Image, Money} from '@shopify/hydrogen';
  *   loading?: 'eager' | 'lazy';
  * }}
  */
-export const ProductItem = ({product, loading}) => {
+export const ProductItem = ({product, loading, className}) => {
   const variantUrl = useVariantUrl(product.handle);
   const colorOption = product?.options?.find(
     (option) => option.name == 'Color',
   );
   return (
     <Link
-      className="product-item hover:no-underline flex flex-col h-full group"
+      className={
+        'product-item hover:no-underline flex flex-col last-of-type:w-1/2 last-of-type:m-auto h-full group  ' +
+        className
+      }
       key={product.id}
       prefetch="intent"
       to={variantUrl}
@@ -25,6 +28,7 @@ export const ProductItem = ({product, loading}) => {
           data={product.featuredImage}
           loading={loading}
           width={300}
+          className="m-auto"
         />
       )}
       <div className=" text-center mt-2 text-sm">
@@ -42,7 +46,7 @@ export const ProductItem = ({product, loading}) => {
           ))}
         </div>
       </div>
-      <hr className="w-0 group-hover:w-8/12 border-gray-400 transition-all m-auto mb-0" />
+      <hr className="w-0  border-gray-400 transition-all m-auto mb-0" />
     </Link>
   );
 };

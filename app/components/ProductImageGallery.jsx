@@ -67,7 +67,7 @@ export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
       </div>
       {navigationType == 'thumbnails' ? (
         <>
-          <div className="h-24 flex justify-between w-fit gap-2 m-auto">
+          <div className="h-16 flex justify-between w-fit gap-2 m-auto">
             {images.map((image, index) => {
               if (image.altText != 'model')
                 return (
@@ -82,7 +82,7 @@ export function ProductImageGallery({images, navigationType = 'thumbnails'}) {
             })}
           </div>
           {secondRowThumbs.length && (
-            <div className="h-24 mt-4 flex justify-between w-fit gap-2 m-auto">
+            <div className="h-16 mt-4 flex justify-between w-fit gap-2 m-auto">
               {images.map((image, index) => {
                 if (image.altText == 'model')
                   return (
