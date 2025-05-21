@@ -1,7 +1,7 @@
-import {useNavigate} from '@remix-run/react';
-
+import {useNavigate, redirect} from '@remix-run/react';
+export async function loader() {
+  return redirect('/');
+}
 export default function Password() {
-  const nav = useNavigate();
-  nav('/');
   return <div></div>;
 }
