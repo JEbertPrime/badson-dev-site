@@ -79,7 +79,7 @@ export default function Homepage() {
         cutover="bottom"
         collection={data.featuredCollection}
       />
-      <div className=" flex justify-center content-center w-full h-32 bg-gradient-to-b from-black via-gray-600 to-white"></div>
+      <div className=" flex justify-center content-center w-full h-40 bg-gradient-to-b from-black to-white"></div>
       <FeaturedCollection cutover="top" collection={data.core} />
     </div>
   );

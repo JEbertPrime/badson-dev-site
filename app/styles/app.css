@@ -190,12 +190,10 @@ body{
 body.dark .cart-icon{
   filter: invert();
 }
-.dark .product-item .text-center,.dark .product-item hr{
+.dark .product-item .text-center,.dark .product-item hr, .light .product-item .text-center{
   display: none;
 }
-.light .product-item .text-center, .light .product-item hr{
-  display: block;
-}
+
 body{
   background-color: var(--background-color);
   color: var(--foreground-color);
