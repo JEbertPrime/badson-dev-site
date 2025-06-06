@@ -79,7 +79,8 @@ export default function Homepage() {
         cutover="bottom"
         collection={data.featuredCollection}
       />
-      <div className=" flex justify-center content-center w-full h-40 bg-gradient-to-b from-black to-white"></div>
+      <div className=" flex justify-center content-center w-full h-40 bg-gradient-to-b from-black to-white mb-[-1px]"></div>
+
       <FeaturedCollection cutover="top" collection={data.core} />
     </div>
   );
@@ -118,6 +119,13 @@ function FeaturedCollection({collection, cutover}) {
         }
         ref={ref}
       ></div>
+      {collection.title == 'CORE' && (
+        <div className="bg-white mb-[-1px] p-2 pt-8">
+          <div className="border border-black w-fit m-auto text-black text-3xl p-2 pb-1 block">
+            <h2>CORE</h2>
+          </div>
+        </div>
+      )}
       <div
         className={
           'collection grid grid-cols-2 flex-wrap p-6 gap-6 max-w-4xl m-auto opacity-1'

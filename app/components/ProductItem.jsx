@@ -15,7 +15,7 @@ export const ProductItem = ({product, loading, className}) => {
   return (
     <Link
       className={
-        'product-item hover:no-underline [#hlr-tee-shirt&]:scale-110 flex flex-col [#buttons-convertible-coat&]:w-3/5 [#buttons-convertible-coat&]:m-auto h-full group  ' +
+        'product-item hover:no-underline [#hlr-tee-shirt&]:scale-110 flex flex-col [#buttons-convertible-coat&]:w-3/5 [#buttons-convertible-coat&]:m-auto  [#core-double-sock-pack&]:w-1/2 [#core-double-sock-pack&]:m-auto [#core-double-sock-pack&]:col-span-2 h-full group  ' +
         className
       }
       id={product.handle}
