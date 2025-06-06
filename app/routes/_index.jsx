@@ -1,6 +1,8 @@
+import {useInView} from 'react-intersection-observer';
+
 import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
-import {Suspense, useContext, useEffect} from 'react';
+import {Suspense, useContext, useEffect, useRef} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {ProductItem} from '~/components/ProductItem';
 import {ColorSetterContext} from '~/lib/colorContext';
@@ -30,15 +32,20 @@ export async function loader(args) {
  * @param {LoaderFunctionArgs}
  */
 async function loadCriticalData({context}) {
-  const [{collection}] = await Promise.all([
+  const [{collection}, {collection: core}] = await Promise.all([
     context.storefront.query(FEATURED_COLLECTION_QUERY, {
       variables: {handle: 'light-1'},
     }),
+    context.storefront.query(FEATURED_COLLECTION_QUERY, {
+      variables: {handle: 'vessel-delivery-one'},
+    }),
+
     // Add other queries here, so that they are loaded in parallel
   ]);
 
   return {
     featuredCollection: collection,
+    core,
   };
 }
 
@@ -65,9 +72,15 @@ function loadDeferredData({context}) {
 export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
+  console.log(data.core);
   return (
     <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
+      <FeaturedCollection
+        cutover="bottom"
+        collection={data.featuredCollection}
+      />
+      <div className=" flex justify-center content-center w-full h-32 bg-gradient-to-b from-black via-gray-600 to-white"></div>
+      <FeaturedCollection cutover="top" collection={data.core} />
     </div>
   );
 }
@@ -77,28 +90,48 @@ export default function Homepage() {
  *   collection: FeaturedCollectionFragment;
  * }}
  */
-function FeaturedCollection({collection}) {
+function FeaturedCollection({collection, cutover}) {
   const setColorScheme = useContext(ColorSetterContext);
-
+  const {ref, inView, entry} = useInView({
+    threshold: cutover == 'top' ? 0.91 : 0.0,
+  });
   useEffect(() => {
-    if (collection?.metafield?.value) {
-      setColorScheme(collection.metafield.value.toLowerCase());
-    } else {
-      setColorScheme('dark');
+    if (inView) {
+      console.log(inView);
+      if (collection?.metafield?.value) {
+        setColorScheme(collection.metafield.value.toLowerCase());
+      }
     }
   });
   if (!collection) return null;
 
   return (
-    <div className="collection grid grid-cols-2 flex-wrap p-6 gap-6 max-w-4xl m-auto opacity-1  ">
-      {collection.products.nodes.map((product, index) => (
-        <ProductItem
-          key={product.id}
-          className=" [#buttons-convertible-coat&]:col-span-2"
-          product={product}
-          loading={index < 8 ? 'eager' : 'lazy'}
-        />
-      ))}
+    <div
+      className={
+        collection.metafield.value.toLowerCase() +
+        ' bg-[var(--background-color)] relative'
+      }
+    >
+      <div
+        className={
+          'absolute h-dvh w-4 ' + (cutover == 'top' ? 't-0' : 'bottom-0')
+        }
+        ref={ref}
+      ></div>
+      <div
+        className={
+          'collection grid grid-cols-2 flex-wrap p-6 gap-6 max-w-4xl m-auto opacity-1'
+        }
+      >
+        {collection.products.nodes.map((product, index) => (
+          <ProductItem
+            key={product.id}
+            className=" [#buttons-convertible-coat&]:col-span-2"
+            product={product}
+            loading={index < 8 ? 'eager' : 'lazy'}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -248,7 +281,26 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
     }
   }
 `;
-
+const ALL_COLLECTIONS_QUERY = `#graphql
+  query {
+    collections(first: 10) {
+      edges {
+        node {
+          id
+          title
+          description
+          products(first: 5) {
+            edges {
+              node {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */
 /** @typedef {import('storefrontapi.generated').FeaturedCollectionFragment} FeaturedCollectionFragment */

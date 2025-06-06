@@ -24,6 +24,8 @@
     "motion": "^11.18.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-in-viewport": "^1.0.0-beta.8",
+    "react-intersection-observer": "^9.16.0",
     "react-swipeable": "^7.0.2"
   },
   "devDependencies": {

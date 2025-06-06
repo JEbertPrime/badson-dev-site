@@ -24,18 +24,16 @@ body {
   padding: 0;
   font-size: 14px;
 }
-body.light{
+.light{
   --background-color: #fff;
   --foreground-color: #000;
 
 }
-body.dark{
+.dark{
   --background-color: #000;
   --foreground-color: #fff;
 }
-body.dark .product-item .text-center{
-  display: none;
-}
+
 h1,
 h2,
 p {
@@ -195,12 +193,18 @@ body.dark .cart-icon{
 .dark .product-item .text-center,.dark .product-item hr{
   display: none;
 }
-
+.light .product-item .text-center, .light .product-item hr{
+  display: block;
+}
 body{
   background-color: var(--background-color);
   color: var(--foreground-color);
 }
+.dark,.light{
+  background-color: var(--background-color);
+  color: var(--foreground-color);
 
+}
 /*
 * --------------------------------------------------
 * Non anchor links
