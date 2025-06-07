@@ -25,13 +25,13 @@ body {
   font-size: 14px;
 }
 .light{
-  --background-color: #fff;
-  --foreground-color: #000;
+  --background-color: #ffffff;
+  --foreground-color: #000000;
 
 }
 .dark{
-  --background-color: #000;
-  --foreground-color: #fff;
+  --background-color: #000000;
+  --foreground-color: #ffffff;
 }
 
 h1,
@@ -190,7 +190,7 @@ body{
 body.dark .cart-icon{
   filter: invert();
 }
-.dark .product-item .text-center,.dark .product-item hr, .light .product-item .text-center{
+.dark .product-item .text-center,.dark .product-item hr, .light .product-item .text-center small{
   display: none;
 }
 
