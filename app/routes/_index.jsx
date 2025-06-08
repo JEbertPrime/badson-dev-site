@@ -85,7 +85,7 @@ export default function Homepage() {
       <div
         className={
           'opacity-0 animate-forwards ' +
-          (scroll >= 100 ? 'animate-fadein' : '')
+          (scroll >= 130 ? 'animate-fadein' : '')
         }
       >
         <FeaturedCollection cutover="top" collection={data.core} />
