@@ -185,7 +185,7 @@ body{
   padding-top: 60px;
 }
 *{
-  transition: background-color 333ms ease;
+  transition: background-color 150ms ease;
 }
 body.dark .cart-icon{
   filter: invert();
