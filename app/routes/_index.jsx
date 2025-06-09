@@ -7,6 +7,7 @@ import {Image, Money} from '@shopify/hydrogen';
 import {ProductItem} from '~/components/ProductItem';
 import {ColorSetterContext} from '~/lib/colorContext';
 import {ScrollAnimationSection} from '~/components/ScrollAnimationSection';
+import {DownArrow} from '~/components/DownArrow';
 /**
  * @type {MetaFunction}
  */
@@ -81,11 +82,14 @@ export default function Homepage() {
         cutover="bottom"
         collection={data.featuredCollection}
       />
+      <div className="w-fit m-auto p-6">
+        <DownArrow />
+      </div>
       <ScrollAnimationSection {...{setScroll}} />
       <div
         className={
           'opacity-0 animate-forwards ' +
-          (scroll >= 130 ? 'animate-fadein' : '')
+          (scroll >= 150 ? 'animate-fadein' : '')
         }
       >
         <FeaturedCollection cutover="top" collection={data.core} />
@@ -104,14 +108,7 @@ function FeaturedCollection({collection, cutover}) {
   const {ref, inView, entry} = useInView({
     threshold: cutover == 'top' ? 0.91 : 0.0,
   });
-  useEffect(() => {
-    if (inView) {
-      console.log(inView);
-      if (collection?.metafield?.value) {
-        setColorScheme(collection.metafield.value.toLowerCase());
-      }
-    }
-  });
+  useEffect(() => {});
   if (!collection) return null;
 
   return (

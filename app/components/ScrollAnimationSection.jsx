@@ -14,7 +14,7 @@ export const ScrollAnimationSection = (props) => {
 
         // Calculate the percentage of the element scrolled through
         const percentage = Math.max(0, (scrolledHeight / totalHeight) * 100);
-        if (percentage >= 66) {
+        if (percentage >= 125) {
           setColorScheme('light');
         } else {
           setColorScheme('dark');
@@ -36,7 +36,7 @@ export const ScrollAnimationSection = (props) => {
   return (
     <div
       ref={topLevelDivRef}
-      className="h-[110dvh] bg-[var(--background-color)] relative"
+      className="h-[80dvh] bg-[var(--background-color)] relative"
     >
       <div className="bg mb-[-1px] p-2 pt-8 sticky top-[40dvh]">
         <div className=" w-fit m-auto text-black text-3xl p-2 pb-1 block">
@@ -70,7 +70,7 @@ const DotLetter = ({letter, scrollProgress}) => {
     <span
       className={
         'grid grid-cols-5 gap-1  transition-transform duration-300 ' +
-        (scrollProgress < 120 ? 'rotate-180' : 'rotate-360 delay-200')
+        (scrollProgress < 150 ? 'rotate-180' : 'rotate-360 delay-200')
       }
     >
       {letter.map((square, i) => (
@@ -79,7 +79,7 @@ const DotLetter = ({letter, scrollProgress}) => {
           className={`w-2 transition-opacity duration-500 h-2 rounded-full bg-black ${
             square
               ? 'opacity-100'
-              : scrollProgress < 120
+              : scrollProgress < 150
               ? 'opacity-100'
               : 'opacity-0'
           }`}
