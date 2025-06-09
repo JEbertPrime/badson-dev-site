@@ -39,7 +39,15 @@ export const ScrollAnimationSection = (props) => {
       className="h-[80dvh] bg-[var(--background-color)] relative"
     >
       <div className="bg mb-[-1px] p-2 pt-8 sticky top-[40dvh]">
-        <div className=" w-fit m-auto text-black text-3xl p-2 pb-1 block">
+        <div
+          className={
+            ' w-fit m-auto text-black text-3xl p-2 pb-1 block duration-300 transition-opacity' +
+            (scrollProgress < 33 ? ' opacity-0' : ' opacity-100') +
+            ((scrollProgress > 40) & (scrollProgress < 125)
+              ? ' animate-pulse'
+              : '')
+          }
+        >
           <CoreDots scrollProgress={scrollProgress} />
         </div>
       </div>
@@ -54,29 +62,37 @@ const CoreDots = ({scrollProgress}) => {
     [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1],
   ];
   return (
-    <div className="grid grid-cols-4 gap-6">
+    <div className="flex flex-row justify-center gap-6">
       {letters.map((letter, index) => (
         <DotLetter
           key={index}
           scrollProgress={scrollProgress}
           letter={letter}
+          index={index}
         />
       ))}
     </div>
   );
 };
-const DotLetter = ({letter, scrollProgress}) => {
+const DotLetter = ({letter, scrollProgress, index}) => {
   return (
     <span
       className={
-        'grid grid-cols-5 gap-1  transition-transform duration-300 ' +
+        'grid  grid-cols-5 gap-1 overflow-visible w-max transition-transform duration-300 ' +
         (scrollProgress < 150 ? 'rotate-180' : 'rotate-360 delay-200')
+      }
+      style={
+        scrollProgress > 125
+          ? {}
+          : {
+              transform: `translateX(calc(${50 - index * 142}% + 6rem))`,
+            }
       }
     >
       {letter.map((square, i) => (
         <span
           key={i}
-          className={`w-2 transition-opacity duration-500 h-2 rounded-full bg-black ${
+          className={`w-2 transition-opacity duration-500 h-2 rounded-full bg-[var(--foreground-color)] ${
             square
               ? 'opacity-100'
               : scrollProgress < 150

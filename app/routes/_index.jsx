@@ -82,9 +82,6 @@ export default function Homepage() {
         cutover="bottom"
         collection={data.featuredCollection}
       />
-      <div className="w-fit m-auto p-6">
-        <DownArrow />
-      </div>
       <ScrollAnimationSection {...{setScroll}} />
       <div
         className={
