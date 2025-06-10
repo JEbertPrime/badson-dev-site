@@ -85,9 +85,10 @@ export default function Homepage() {
       <ScrollAnimationSection {...{setScroll}} />
       <div
         className={
-          'opacity-0 animate-forwards ' +
+          'opacity-0 animate-forwards scroll-m-32 ' +
           (scroll >= 150 ? 'animate-fadein' : '')
         }
+        id="core"
       >
         <FeaturedCollection cutover="top" collection={data.core} />
       </div>

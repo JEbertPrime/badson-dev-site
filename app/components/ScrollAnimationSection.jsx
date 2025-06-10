@@ -42,8 +42,7 @@ export const ScrollAnimationSection = (props) => {
         <div
           className={
             ' w-fit m-auto text-black text-3xl p-2 pb-1 block duration-300 transition-opacity' +
-            (scrollProgress < 33 ? ' opacity-0' : ' opacity-100') +
-            ((scrollProgress > 40) & (scrollProgress < 125)
+            ((scrollProgress > 33) & (scrollProgress < 125)
               ? ' animate-pulse'
               : '')
           }
@@ -62,7 +61,12 @@ const CoreDots = ({scrollProgress}) => {
     [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1],
   ];
   return (
-    <div className="flex flex-row justify-center gap-6">
+    <div
+      onClick={() =>
+        document.querySelector('#core').scrollIntoView({behavior: 'smooth'})
+      }
+      className="flex flex-row justify-center gap-6"
+    >
       {letters.map((letter, index) => (
         <DotLetter
           key={index}
