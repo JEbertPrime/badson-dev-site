@@ -82,7 +82,7 @@ const DotLetter = ({letter, scrollProgress, index}) => {
   return (
     <span
       className={
-        'grid  grid-cols-5 gap-1 overflow-visible w-max transition-transform duration-300 ' +
+        'grid cursor-pointer  grid-cols-5 gap-1 overflow-visible w-max transition-transform duration-300 ' +
         (scrollProgress < 150 ? 'rotate-180' : 'rotate-360 delay-200')
       }
       style={
