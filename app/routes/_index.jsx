@@ -8,6 +8,7 @@ import {ProductItem} from '~/components/ProductItem';
 import {ColorSetterContext} from '~/lib/colorContext';
 import {ScrollAnimationSection} from '~/components/ScrollAnimationSection';
 import {DownArrow} from '~/components/DownArrow';
+import {Element} from 'react-scroll';
 /**
  * @type {MetaFunction}
  */
@@ -85,12 +86,14 @@ export default function Homepage() {
       <ScrollAnimationSection {...{setScroll}} />
       <div
         className={
-          'opacity-0 animate-forwards scroll-m-32 ' +
+          'opacity-0 animate-forwards  ' +
           (scroll >= 150 ? 'animate-fadein' : '')
         }
         id="core"
       >
-        <FeaturedCollection cutover="top" collection={data.core} />
+        <Element name="core">
+          <FeaturedCollection cutover="top" collection={data.core} />
+        </Element>
       </div>
     </div>
   );
@@ -110,12 +113,7 @@ function FeaturedCollection({collection, cutover}) {
   if (!collection) return null;
 
   return (
-    <div
-      className={
-        collection.metafield.value.toLowerCase() +
-        ' bg-[var(--background-color)] relative'
-      }
-    >
+    <div className={' bg-[var(--background-color)] relative'}>
       <div
         className={
           'absolute h-dvh w-4 ' + (cutover == 'top' ? 't-0' : 'bottom-0')

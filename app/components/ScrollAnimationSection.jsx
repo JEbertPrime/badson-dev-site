@@ -1,6 +1,9 @@
 import {useEffect, useState, useRef, useContext} from 'react';
 import {ColorSetterContext} from '~/lib/colorContext';
+import {Link} from 'react-scroll';
 export const ScrollAnimationSection = (props) => {
+  const [scrollDirection, setScrollDirection] = useState(null);
+  const lastScrollY = useRef(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const topLevelDivRef = useRef(null);
   const setColorScheme = useContext(ColorSetterContext);
@@ -14,7 +17,7 @@ export const ScrollAnimationSection = (props) => {
 
         // Calculate the percentage of the element scrolled through
         const percentage = Math.max(0, (scrolledHeight / totalHeight) * 100);
-        if (percentage >= 125) {
+        if (percentage >= (scrollDirection === 'down' ? 125 : 150)) {
           setColorScheme('light');
         } else {
           setColorScheme('dark');
@@ -22,6 +25,15 @@ export const ScrollAnimationSection = (props) => {
 
         setScrollProgress(percentage);
         scrollCallback(percentage);
+
+        // Track scroll direction
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY.current) {
+          setScrollDirection('down');
+        } else if (currentScrollY < lastScrollY.current) {
+          setScrollDirection('up');
+        }
+        lastScrollY.current = currentScrollY;
       }
     };
 
@@ -61,10 +73,10 @@ const CoreDots = ({scrollProgress}) => {
     [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1],
   ];
   return (
-    <div
-      onClick={() =>
-        document.querySelector('#core').scrollIntoView({behavior: 'smooth'})
-      }
+    <Link
+      to="core"
+      smooth={true}
+      duration={1000}
       className="flex flex-row justify-center gap-6"
     >
       {letters.map((letter, index) => (
@@ -75,7 +87,7 @@ const CoreDots = ({scrollProgress}) => {
           index={index}
         />
       ))}
-    </div>
+    </Link>
   );
 };
 const DotLetter = ({letter, scrollProgress, index}) => {
