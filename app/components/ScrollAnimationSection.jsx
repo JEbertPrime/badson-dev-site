@@ -3,6 +3,7 @@ import {ColorSetterContext} from '~/lib/colorContext';
 export const ScrollAnimationSection = (props) => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const topLevelDivRef = useRef(null);
+  const [scrollDirection, setScrollDirection] = useState('down');
   const setColorScheme = useContext(ColorSetterContext);
   const scrollCallback = props.setScroll || (() => {});
   useEffect(() => {
@@ -89,7 +90,7 @@ const DotLetter = ({letter, scrollProgress, index}) => {
         scrollProgress > 125
           ? {}
           : {
-              transform: `translateX(calc(${50 - index * 142}% + 6rem))`,
+              transform: `translateX(calc(${50 - index * 142}% + 5.75rem))`,
             }
       }
     >

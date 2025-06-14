@@ -110,12 +110,7 @@ function FeaturedCollection({collection, cutover}) {
   if (!collection) return null;
 
   return (
-    <div
-      className={
-        collection.metafield.value.toLowerCase() +
-        ' bg-[var(--background-color)] relative'
-      }
-    >
+    <div className={collection.metafield.value.toLowerCase() + '  relative'}>
       <div
         className={
           'absolute h-dvh w-4 ' + (cutover == 'top' ? 't-0' : 'bottom-0')
